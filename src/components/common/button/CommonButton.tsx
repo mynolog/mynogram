@@ -1,4 +1,4 @@
-import type { ReactNode } from 'react'
+import type { ReactNode, MouseEvent } from 'react'
 
 export type CommonButtonProps = {
   children: ReactNode
@@ -7,7 +7,8 @@ export type CommonButtonProps = {
   fontSize?: string
   width?: string
   gap?: string
-  onClick?: () => void
+  type?: 'button' | 'submit' | 'reset'
+  onClick?: (e: MouseEvent<HTMLButtonElement>) => void
 }
 
 const CommonButton = ({
@@ -17,6 +18,7 @@ const CommonButton = ({
   fontSize = '1.25rem',
   width = '',
   gap = '',
+  type = 'button',
   onClick = () => {},
 }: CommonButtonProps) => {
   return (
@@ -30,6 +32,7 @@ const CommonButton = ({
       }}
       className="p-3 border-none outline-none rounded-xl flex items-center justify-center"
       onClick={onClick}
+      type={type}
     >
       {children}
     </button>
