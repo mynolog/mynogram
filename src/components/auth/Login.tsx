@@ -1,11 +1,14 @@
 import { useAuthStore } from '../../store/authStroe.ts'
 import { useNavigate } from 'react-router-dom'
+import { firebaseAuthService } from '../../service/firebaseAuthService.ts'
 
 const Login = () => {
-  const setIsAuthenticated = useAuthStore((state) => state.setIsAuthenticated)
+  const { setIsAuthenticated, setUser } = useAuthStore()
   const navigate = useNavigate()
 
-  const handleLogin = () => {
+  const handleLogin = async () => {
+    const loginUser = await firebaseAuthService.googleLogin()
+    setUser(loginUser)
     setIsAuthenticated(true)
     navigate('/')
   }
