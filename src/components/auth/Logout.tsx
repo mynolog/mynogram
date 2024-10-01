@@ -1,5 +1,6 @@
 import { useAuthStore } from '../../store/authStroe.ts'
 import { firebaseAuthService } from '../../service/firebaseAuthService.ts'
+import CommonButton from '../common/button/CommonButton.tsx'
 
 const Logout = () => {
   const { setUser, setIsAuthenticated } = useAuthStore()
@@ -9,12 +10,9 @@ const Logout = () => {
     setIsAuthenticated(false)
   }
   return (
-    <button
-      className="absolute bottom-2 left-2 w-11/12 bg-gray-900 text-white p-3 rounded-xl flex items-center justify-center gap-3"
-      onClick={handleLogout}
-    >
+    <CommonButton width="90%" fontSize="0.85rem" onClick={handleLogout}>
       로그아웃
-    </button>
+    </CommonButton>
   )
 }
 

@@ -12,7 +12,9 @@ const Nav = () => {
         </Link>
       </div>
       <NavList />
-      <Logout />
+      <div className="absolute bottom-3 left-3 w-full">
+        <Logout />
+      </div>
     </nav>
   )
 }

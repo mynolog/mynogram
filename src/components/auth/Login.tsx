@@ -3,6 +3,7 @@ import { Navigate, useNavigate } from 'react-router-dom'
 import { firebaseAuthService } from '../../service/firebaseAuthService.ts'
 import { FaGoogle } from 'react-icons/fa'
 import Logo from '../common/logo/Logo.tsx'
+import CommonButton from '../common/button/CommonButton.tsx'
 
 const Login = () => {
   const { setIsAuthenticated, setUser, isAuthenticated } = useAuthStore()
@@ -22,13 +23,10 @@ const Login = () => {
   return (
     <div className="w-full h-screen flex flex-col items-center justify-center gap-6">
       <Logo />
-      <button
-        className="w-1/6 bg-gray-900 text-white p-3 rounded-xl flex items-center justify-center gap-3"
-        onClick={handleLogin}
-      >
+      <CommonButton width="16.7%" gap="1.25rem" onClick={handleLogin}>
         <FaGoogle />
         <span>로그인</span>
-      </button>
+      </CommonButton>
     </div>
   )
 }
