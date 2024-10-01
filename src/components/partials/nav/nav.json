@@ -1,0 +1,44 @@
+{
+  "nav": [
+    {
+      "id": "home",
+      "to": "/",
+      "title": "홈"
+    },
+    {
+      "id": "search",
+      "to": "/",
+      "title": "검색"
+    },
+    {
+      "id": "explore",
+      "to": "/",
+      "title": "탐색 탭"
+    },
+    {
+      "id": "reels",
+      "to": "/",
+      "title": "릴스"
+    },
+    {
+      "id": "message",
+      "to": "/",
+      "title": "메시지"
+    },
+    {
+      "id": "notification",
+      "to": "/",
+      "title": "알림"
+    },
+    {
+      "id": "upload",
+      "to": "/upload",
+      "title": "만들기"
+    },
+    {
+      "id": "profile",
+      "to": "/",
+      "title": "프로필"
+    }
+  ]
+}

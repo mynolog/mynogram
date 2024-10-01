@@ -1,4 +1,5 @@
 import { createBrowserRouter, RouterProvider } from 'react-router-dom'
+import Layout from '../components/layout/Layout.tsx'
 import Home from '../components/home/Home.tsx'
 import Login from '../components/auth/Login.tsx'
 import ProtectedRoute from './protectedRoute/ProtectedRoute.tsx'
@@ -9,9 +10,15 @@ export default function AppRouter() {
       path: '/',
       element: (
         <ProtectedRoute>
-          <Home />
+          <Layout />
         </ProtectedRoute>
       ),
+      children: [
+        {
+          index: true,
+          element: <Home />,
+        },
+      ],
     },
     {
       path: '/login',
