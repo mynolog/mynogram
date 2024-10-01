@@ -10,7 +10,7 @@ import useToastStore from '../../store/toastStore.ts'
 
 const SignUp = () => {
   const addToast = useToastStore((state) => state.addToast)
-  const { uid, setNeedSignUp, setIsAuthenticated } = useAuthStore()
+  const { uid, setIsSignUpRequired, setIsAuthenticated } = useAuthStore()
   const navigate = useNavigate()
   const { form, handleFormChange, resetForm } = useForm({
     id: '',
@@ -30,7 +30,7 @@ const SignUp = () => {
         return
       }
       addToast('✅ 회원가입 완료: 로그인 페이지로 이동합니다!', 'update')
-      setNeedSignUp(false)
+      setIsSignUpRequired(false)
       setIsAuthenticated(true)
       navigate('/login')
     }

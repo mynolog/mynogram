@@ -6,8 +6,8 @@ type AuthState = {
   setIsAuthenticated: (isAuthenticated: boolean) => void
   user: User | null
   setUser: (user: User | null) => void
-  needSignUp: boolean
-  setNeedSignUp: (needSignUp: boolean) => void
+  isSignUpRequired: boolean
+  setIsSignUpRequired: (isSignUpRequired: boolean) => void
   uid: string | null
   setUid: (uid: string | null) => void
 }
@@ -15,10 +15,10 @@ type AuthState = {
 export const useAuthStore = create<AuthState>((set) => ({
   user: null,
   isAuthenticated: false,
-  needSignUp: true,
+  isSignUpRequired: true,
   uid: null,
   setUser: (user: User | null) => set({ user }),
   setIsAuthenticated: (isAuthenticated) => set({ isAuthenticated }),
-  setNeedSignUp: (needSignUp) => set({ needSignUp }),
+  setIsSignUpRequired: (isSignUpRequired) => set({ isSignUpRequired }),
   setUid: (uid) => set({ uid }),
 }))

@@ -13,15 +13,15 @@ const Login = () => {
     setIsAuthenticated,
     setUser,
     isAuthenticated,
-    needSignUp,
-    setNeedSignUp,
+    isSignUpRequired,
+    setIsSignUpRequired,
     setUid,
   } = useAuthStore()
   const { checkUserExists } = useFirebase()
   const navigate = useNavigate()
 
   const handleLoginClick = async () => {
-    setNeedSignUp(true)
+    setIsSignUpRequired(true)
     try {
       const loginUser = await firebaseAuthService.googleLogin()
       if (loginUser) {
@@ -36,7 +36,7 @@ const Login = () => {
       addToast('✅ 로그인 성공: 환영합니다!', 'success')
       setUser(loginUser)
       setIsAuthenticated(true)
-      setNeedSignUp(false)
+      setIsSignUpRequired(false)
       // navigate('/')
     } catch (error) {
       console.log('로그인 실패', error)
@@ -44,7 +44,7 @@ const Login = () => {
     }
   }
 
-  if (!needSignUp && isAuthenticated) {
+  if (!isSignUpRequired && isAuthenticated) {
     return <Navigate to={'/'} />
   }
 
