@@ -5,7 +5,7 @@ import NavItem from './NavItem.tsx'
 import { Link } from 'react-router-dom'
 
 const NavList = () => {
-  const [navItems, _] = useState(navData.nav)
+  const [navItems, _] = useState(Object.freeze(navData.nav))
   return (
     <ul className="w-full flex flex-col gap-2">
       {navItems.length > 0 &&

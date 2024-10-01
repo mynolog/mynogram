@@ -7,7 +7,7 @@ import {
 import { FiSend, FiHeart } from 'react-icons/fi'
 import { FaRegUserCircle } from 'react-icons/fa'
 
-export const icons = {
+export const icons = Object.freeze({
   home: <GoHome />,
   search: <GoSearch />,
   explore: <MdOutlineExplore />,
@@ -16,4 +16,4 @@ export const icons = {
   notification: <FiHeart />,
   upload: <MdOutlineAddPhotoAlternate />,
   profile: <FaRegUserCircle />,
-}
+})
