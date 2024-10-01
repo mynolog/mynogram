@@ -10,7 +10,7 @@ export const firebaseAuthService = {
       const result = await signInWithPopup(auth, googleAuthProvider)
       return result.user
     } catch (error) {
-      console.error('googleLogin', error)
+      console.error('로그인 실패', error)
       return null
     }
   },
