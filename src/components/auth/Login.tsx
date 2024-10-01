@@ -5,8 +5,10 @@ import { FaGoogle } from 'react-icons/fa'
 import Logo from '../common/logo/Logo.tsx'
 import CommonButton from '../common/button/CommonButton.tsx'
 import useFirebase from '../../hooks/useFirebase.tsx'
+import useToastStore from '../../store/toastStore.ts'
 
 const Login = () => {
+  const addToast = useToastStore((state) => state.addToast)
   const {
     setIsAuthenticated,
     setUser,
@@ -25,19 +27,20 @@ const Login = () => {
       if (loginUser) {
         const isRegistered = await checkUserExists(loginUser.uid)
         if (!isRegistered) {
-          console.log('회원가입필요')
+          addToast('⚠️ 비회원: 회원가입 페이지로 이동합니다.', 'update')
           setUid(loginUser.uid)
           navigate('/signup')
           return
         }
       }
-      console.log(loginUser)
+      addToast('✅ 로그인 성공: 환영합니다!', 'success')
       setUser(loginUser)
       setIsAuthenticated(true)
       setNeedSignUp(false)
       // navigate('/')
     } catch (error) {
       console.log('로그인 실패', error)
+      addToast('🚫 로그인 실패: 관리자에게 문의해주세요.', 'warning')
     }
   }
 

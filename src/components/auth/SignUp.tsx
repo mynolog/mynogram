@@ -6,8 +6,10 @@ import CommonInput from '../common/input/CommonInput.tsx'
 import useForm from '../../hooks/useForm'
 import { firebaseAuthService } from '../../service/firebaseAuthService.ts'
 import { useNavigate } from 'react-router-dom'
+import useToastStore from '../../store/toastStore.ts'
 
 const SignUp = () => {
+  const addToast = useToastStore((state) => state.addToast)
   const { uid, setNeedSignUp, setIsAuthenticated } = useAuthStore()
   const navigate = useNavigate()
   const { form, handleFormChange, resetForm } = useForm({
@@ -27,10 +29,9 @@ const SignUp = () => {
       if (!result) {
         return
       }
-      // 회원가입 완료 토스트 메시지 출력 필요
+      addToast('✅ 회원가입 완료: 로그인 페이지로 이동합니다!', 'update')
       setNeedSignUp(false)
       setIsAuthenticated(true)
-      // 회원가입 완료 후 다시 로그인 필요
       navigate('/login')
     }
   }
