@@ -5,7 +5,7 @@ const Layout = () => {
   return (
     <div className="w-full h-screen flex">
       <Nav />
-      <main>
+      <main className="w-full ml-72 mr-20">
         <Outlet />
       </main>
     </div>
