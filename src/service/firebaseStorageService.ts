@@ -81,7 +81,6 @@ export const firebaseStorageService = {
             ...(userDoc.data() as UserProfile),
             posts: userPosts.length,
           }
-          console.log(newUserProfile)
           callback(newUserProfile)
         } else {
           callback(null)

@@ -42,28 +42,26 @@ const MainUserPost = () => {
         </div>
       </div>
       <div className="w-full">
-        {storedPosts.length > 0 ? (
-          <ul className="w-full grid grid-cols-3 gap-1">
-            {storedPosts.filter((post) => post.uid === uid).length > 0 ? (
-              storedPosts.map(
-                (post) =>
-                  post.uid === uid && (
-                    <li key={post.id}>
-                      <img
-                        src={post.url}
-                        alt={post.author}
-                        className="w-80 h-80 object-cover"
-                      />
-                    </li>
-                  ),
-              )
-            ) : (
+        <ul className="w-full grid grid-cols-3 gap-1">
+          {storedPosts.filter((post) => post.uid === uid).length > 0 ? (
+            storedPosts.map(
+              (post) =>
+                post.uid === uid && (
+                  <li key={post.id}>
+                    <img
+                      src={post.url}
+                      alt={post.author}
+                      className="w-80 h-80 object-cover"
+                    />
+                  </li>
+                ),
+            )
+          ) : (
+            <li className="col-span-3">
               <EmptyPostItem />
-            )}
-          </ul>
-        ) : (
-          <EmptyPostItem />
-        )}
+            </li>
+          )}
+        </ul>
       </div>
     </div>
   )
