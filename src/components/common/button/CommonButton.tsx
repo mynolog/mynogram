@@ -8,6 +8,7 @@ export type CommonButtonProps = {
   width?: string
   gap?: string
   type?: 'button' | 'submit' | 'reset'
+  padding?: string
   onClick?: (e: MouseEvent<HTMLButtonElement>) => void
 }
 
@@ -19,6 +20,7 @@ const CommonButton = ({
   width = '',
   gap = '',
   type = 'button',
+  padding = '0.75rem',
   onClick = () => {},
 }: CommonButtonProps) => {
   return (
@@ -29,8 +31,9 @@ const CommonButton = ({
         fontSize,
         width,
         gap,
+        padding,
       }}
-      className="p-3 border-none outline-none rounded-xl flex items-center justify-center"
+      className="border-none outline-none rounded-xl flex items-center justify-center"
       onClick={onClick}
       type={type}
     >
