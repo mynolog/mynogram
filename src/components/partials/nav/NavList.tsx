@@ -1,19 +1,41 @@
-import type { IconKeys } from '../../../types/icon/iconTypes.ts'
-import { useState } from 'react'
-import navData from './nav.json'
+import type { ActiveModalFlag } from '../../../store/modalStore.ts'
 import NavItem from './NavItem.tsx'
 import { Link } from 'react-router-dom'
+import useModalStore from '../../../store/modalStore.ts'
 
 const NavList = () => {
-  const [navItems, _] = useState(Object.freeze(navData.nav))
+  const { openModal } = useModalStore()
+
+  const handleModalOpen = (modalId: ActiveModalFlag) => () => {
+    openModal(modalId)
+  }
+
   return (
     <ul className="w-full flex flex-col gap-2">
-      {navItems.length > 0 &&
-        navItems.map((item) => (
-          <NavItem key={item.id + item.title} iconId={item.id as IconKeys}>
-            <Link to={item.to}>{item.title}</Link>
-          </NavItem>
-        ))}
+      <NavItem iconId="home">
+        <Link to="/">홈</Link>
+      </NavItem>
+      <NavItem iconId="search">
+        <Link to="/">검색</Link>
+      </NavItem>
+      <NavItem iconId="explore">
+        <Link to="/">탐색 홈</Link>
+      </NavItem>
+      <NavItem iconId="reels">
+        <Link to="/">릴스</Link>
+      </NavItem>
+      <NavItem iconId="message">
+        <Link to="/">메시지</Link>
+      </NavItem>
+      <NavItem iconId="notification">
+        <Link to="/">알림</Link>
+      </NavItem>
+      <NavItem iconId="upload" onClick={handleModalOpen('select')}>
+        <button>만들기</button>
+      </NavItem>
+      <NavItem iconId="profile">
+        <Link to="/">프로필</Link>
+      </NavItem>
     </ul>
   )
 }

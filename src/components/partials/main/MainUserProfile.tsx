@@ -11,7 +11,7 @@ const MainUserProfile = () => {
       <div className="w-1/3 flex justify-center items-center">
         <div
           className="bg-gray-100 rounded-full flex justify-center items-center cursor-pointer"
-          style={{ width: '105px', height: '105px' }}
+          style={{ width: '130px', height: '130px' }}
         >
           {/* user에 프로필 이미지가 없으면 기본 프로필 적용 */}
           <CiUser className="text-7xl text-gray-500" />

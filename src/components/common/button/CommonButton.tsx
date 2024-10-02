@@ -21,7 +21,7 @@ const CommonButton = ({
   gap = '',
   type = 'button',
   padding = '0.75rem',
-  onClick = () => {},
+  onClick,
 }: CommonButtonProps) => {
   return (
     <button
