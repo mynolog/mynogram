@@ -2,6 +2,7 @@ import { useAuthStore } from '../../store/authStore.ts'
 import { firebaseAuthService } from '../../service/firebaseAuthService.ts'
 import CommonButton from '../common/button/CommonButton.tsx'
 import useToastStore from '../../store/toastStore.ts'
+import { IoMdLogOut } from 'react-icons/io'
 
 const Logout = () => {
   const addToast = useToastStore((state) => state.addToast)
@@ -18,8 +19,14 @@ const Logout = () => {
     }
   }
   return (
-    <CommonButton width="90%" fontSize="0.85rem" onClick={handleLogoutClick}>
-      로그아웃
+    <CommonButton
+      width="90%"
+      fontSize="0.95rem"
+      gap="0.5rem"
+      onClick={handleLogoutClick}
+    >
+      <IoMdLogOut />
+      <span>로그아웃</span>
     </CommonButton>
   )
 }
