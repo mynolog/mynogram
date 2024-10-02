@@ -33,3 +33,5 @@
     - 전역 상태로 관리중인 userProfile과 isAuthenticated 변수가 웹 페이지 새로 고침 시 null로 초기화되어 /login 페이지로 리다이렉트 됨 
   - 해결 방법
     - 전역 상태로 관리하는 변수와 객체를 zustand persist 미들웨어를 사용하여 로컬스토리지에 연동하는 방법 적용
+
+  
