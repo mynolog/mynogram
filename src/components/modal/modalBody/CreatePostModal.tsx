@@ -45,8 +45,10 @@ const CreatePostModal = ({ file, setFile }: CreatePostModalProps) => {
         uid,
         text,
         author: userProfile.id,
+        createdAt: Date.now(),
       }
       const result = await firebaseStorageService.uploadFile(file, newPost)
+      await firebaseStorageService.findPostsByUid(uid)
       if (!result) {
         addToast('🚫 이미지 업로드 실패: 다시 시도해주세요.', 'warning')
       }

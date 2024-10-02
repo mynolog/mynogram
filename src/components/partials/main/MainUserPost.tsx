@@ -1,5 +1,5 @@
 import type { Post } from '../../../types/post/PostTypes.ts'
-import { useState, useEffect } from 'react'
+import { useEffect, useState } from 'react'
 import CommonHr from '../../common/hr/CommonHr.tsx'
 import { firebaseStorageService } from '../../../service/firebaseStorageService.ts'
 import { BsGrid3X3 } from 'react-icons/bs'
@@ -23,6 +23,7 @@ const MainUserPost = () => {
       })
     }
   }, [])
+
   return (
     <div className="w-full px-14 py-4">
       <CommonHr />
@@ -41,28 +42,28 @@ const MainUserPost = () => {
         </div>
       </div>
       <div className="w-full">
-        <ul className="w-full flex gap-1">
-          {storedPosts.length > 0 ? (
-            storedPosts.some((post) => post.uid === uid) ? (
+        {storedPosts.length > 0 ? (
+          <ul className="w-full grid grid-cols-3 gap-1">
+            {storedPosts.filter((post) => post.uid === uid).length > 0 ? (
               storedPosts.map(
-                (post, index) =>
+                (post) =>
                   post.uid === uid && (
-                    <li key={post.author + index}>
+                    <li key={post.id}>
                       <img
                         src={post.url}
                         alt={post.author}
-                        className="w-64 h-64 object-cover"
+                        className="w-80 h-80 object-cover"
                       />
                     </li>
                   ),
               )
             ) : (
               <EmptyPostItem />
-            )
-          ) : (
-            <EmptyPostItem />
-          )}
-        </ul>
+            )}
+          </ul>
+        ) : (
+          <EmptyPostItem />
+        )}
       </div>
     </div>
   )

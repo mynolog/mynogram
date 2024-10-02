@@ -2,9 +2,24 @@ import { useAuthStore } from '../../../store/authStore.ts'
 import CommonButton from '../../common/button/CommonButton.tsx'
 import { CiUser, CiSettings } from 'react-icons/ci'
 import { FaThreads } from 'react-icons/fa6'
+import { useEffect } from 'react'
+import { firebaseStorageService } from '../../../service/firebaseStorageService.ts'
 
 const MainUserProfile = () => {
-  const { userProfile } = useAuthStore()
+  const { userProfile, uid, setUserProfile } = useAuthStore()
+
+  useEffect(() => {
+    const fetchUserProfile = async () => {
+      return await firebaseStorageService.findPostsByUid(uid!, setUserProfile)
+    }
+    const unsubscribe = fetchUserProfile()
+
+    return () => {
+      unsubscribe.then((unsub) => {
+        if (unsub) unsub()
+      })
+    }
+  }, [uid, setUserProfile])
 
   return (
     <div className="w-full flex">
@@ -48,7 +63,7 @@ const MainUserProfile = () => {
             <div className="w-full flex gap-5">
               <p>
                 <span>게시물 </span>
-                <span className="font-bold">{userProfile.follows}</span>
+                <span className="font-bold">{userProfile.posts}</span>
               </p>
               <p>
                 <span>팔로우 </span>

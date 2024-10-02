@@ -1,15 +1,21 @@
 import type { Post } from '../types/post/PostTypes.ts'
-import { ref, uploadBytes, getDownloadURL } from 'firebase/storage'
+import { getDownloadURL, ref, uploadBytes } from 'firebase/storage'
 import { db, storage } from '../config/firebaseConfig.ts'
 import {
-  collection,
   addDoc,
+  collection,
+  doc,
+  getDoc,
+  onSnapshot,
   orderBy,
   query,
-  onSnapshot,
+  setDoc,
+  where,
 } from 'firebase/firestore'
+import { UserProfile } from '../types/user/UserTypes.ts'
 
-const COLLECTION_NAME = 'posts'
+const COLLECTION_POSTS = 'posts'
+const COLLECTION_USER = 'user'
 
 export const firebaseStorageService = {
   async uploadFile(targetFile: File, targetPost: Post) {
@@ -17,7 +23,7 @@ export const firebaseStorageService = {
       const storageRef = ref(storage, `posts/${targetFile.name}`)
       const uploadResult = await uploadBytes(storageRef, targetFile)
       const fileUrl = await getDownloadURL(uploadResult.ref)
-      const collectionRef = collection(db, COLLECTION_NAME)
+      const collectionRef = collection(db, COLLECTION_POSTS)
       await addDoc(collectionRef, {
         ...targetPost,
         url: fileUrl,
@@ -31,11 +37,12 @@ export const firebaseStorageService = {
 
   async findPosts(callback: (data: Post[]) => void) {
     try {
-      const collectionRef = collection(db, COLLECTION_NAME)
-      const q = query(collectionRef, orderBy('uid', 'desc'))
+      const collectionRef = collection(db, COLLECTION_POSTS)
+      const q = query(collectionRef, orderBy('createdAt', 'desc'))
       return onSnapshot(q, (snapshot) => {
         const data = snapshot.docs.map((doc) => ({
           ...(doc.data() as Post),
+          id: doc.id,
         }))
         callback(data)
       })
@@ -43,5 +50,46 @@ export const firebaseStorageService = {
       console.error(e)
     }
     return null
+  },
+
+  async findPostsByUid(
+    uid: string,
+    callback: (userProfile: UserProfile | null) => void,
+  ) {
+    try {
+      const collectionRef = collection(db, COLLECTION_POSTS)
+      const q = query(collectionRef, where('uid', '==', uid))
+
+      return onSnapshot(q, async (querySnapshot) => {
+        const userPosts = querySnapshot.docs.map((doc) => ({
+          ...(doc.data() as Post),
+          id: doc.id,
+        }))
+
+        const docRef = doc(db, COLLECTION_USER, uid)
+        const userDoc = await getDoc(docRef)
+
+        if (userDoc.exists()) {
+          await setDoc(
+            docRef,
+            {
+              posts: userPosts.length,
+            },
+            { merge: true },
+          )
+          const newUserProfile: UserProfile = {
+            ...(userDoc.data() as UserProfile),
+            posts: userPosts.length,
+          }
+          console.log(newUserProfile)
+          callback(newUserProfile)
+        } else {
+          callback(null)
+        }
+      })
+    } catch (e) {
+      console.error(e)
+      callback(null)
+    }
   },
 }
