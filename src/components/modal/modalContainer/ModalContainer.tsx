@@ -20,7 +20,7 @@ const ModalContainer = () => {
       case 'select':
         return <SelectImageModal setFile={setFile} />
       case 'create':
-        return <CreatePostModal file={file} />
+        return <CreatePostModal file={file} setFile={setFile} />
       case 'edit':
         return <EditPostModal />
       case 'delete':

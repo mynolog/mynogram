@@ -1,16 +1,21 @@
+import type { Dispatch, SetStateAction } from 'react'
 import { useEffect, useState } from 'react'
 import CommonHr from '../../common/hr/CommonHr.tsx'
 import { useAuthStore } from '../../../store/authStore.ts'
 import CommonButton from '../../common/button/CommonButton.tsx'
 import { TbShare3 } from 'react-icons/tb'
+import modalStore from '../../../store/modalStore.ts'
+import { IoIosArrowBack } from 'react-icons/io'
 
 type CreatePostModalProps = {
   file: File | null
+  setFile: Dispatch<SetStateAction<File | null>>
 }
 
-const CreatePostModal = ({ file }: CreatePostModalProps) => {
+const CreatePostModal = ({ file, setFile }: CreatePostModalProps) => {
   const [blobUrl, setBlobUrl] = useState<string | null>(null)
   const { userProfile } = useAuthStore()
+  const { openModal } = modalStore()
 
   useEffect(() => {
     const getBlobUrlFromFileObject = () => {
@@ -22,12 +27,28 @@ const CreatePostModal = ({ file }: CreatePostModalProps) => {
     getBlobUrlFromFileObject()
   }, [file])
 
+  const handleSwitchToSelectMode = () => {
+    setBlobUrl(null)
+    setFile(null)
+    openModal('select')
+  }
+
   return (
     <div className="w-full h-full flex flex-col">
       <div className="w-full flex flex-col justify-center items-center">
-        <div className="w-full flex items-center justify-between">
-          <h2 className="flex-1 text-center">새 게시물 만들기</h2>
-          <div className="ml-auto"></div>
+        <div className="w-full flex items-center justify-between gap-2">
+          <CommonButton
+            fontSize="1rem"
+            width="40px"
+            padding="4px 2px"
+            bgColor="#ffff"
+            onClick={handleSwitchToSelectMode}
+          >
+            <IoIosArrowBack className="text-black text-2xl mb-1" />
+          </CommonButton>
+          <h2 className="flex-1 text-center font-bold mb-2">
+            새 게시물 만들기
+          </h2>
         </div>
         <CommonHr />
         <div className="w-full h-96 flex gap-3">

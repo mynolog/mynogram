@@ -32,10 +32,10 @@ const SelectImageModal = ({ setFile }: SelectImageModalProps) => {
   return (
     <div className="w-full h-full flex flex-col">
       <div className="w-full flex flex-col justify-center items-center gap-2">
-        <h2>새 게시물 만들기</h2>
+        <h2 className="font-bold">새 게시물 만들기</h2>
         <CommonHr />
       </div>
-      <div className="w-full h-full flex flex-col justify-center items-center gap-4">
+      <div className="w-full flex flex-col justify-center items-center gap-3">
         <CiImageOn className="text-9xl" />
         <p className="text-xl">사진을 선택해주세요.</p>
         <CommonButton fontSize="0.85rem" onClick={handleSelectImageClick}>
