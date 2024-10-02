@@ -6,6 +6,7 @@ import { BsGrid3X3 } from 'react-icons/bs'
 import { FaHashtag } from 'react-icons/fa6'
 import { FaRegStar } from 'react-icons/fa'
 import { useAuthStore } from '../../../store/authStore.ts'
+import EmptyPostItem from './EmptyPostItem.tsx'
 
 const MainUserPost = () => {
   const [storedPosts, setStoredPosts] = useState<Post[]>([])
@@ -23,7 +24,7 @@ const MainUserPost = () => {
     }
   }, [])
   return (
-    <div className="w-full px-14 py-10">
+    <div className="w-full px-14 py-4">
       <CommonHr />
       <div className="w-full h-16 flex items-center justify-center gap-20 text-sm">
         <div className="flex h-full justify-center items-center gap-2 border-t-2 border-slate-600 pb-1 px-2">
@@ -41,8 +42,9 @@ const MainUserPost = () => {
       </div>
       <div className="w-full">
         <ul className="w-full flex gap-1">
-          {storedPosts.length > 0
-            ? storedPosts.map(
+          {storedPosts.length > 0 ? (
+            storedPosts.some((post) => post.uid === uid) ? (
+              storedPosts.map(
                 (post, index) =>
                   post.uid === uid && (
                     <li key={post.author + index}>
@@ -54,7 +56,12 @@ const MainUserPost = () => {
                     </li>
                   ),
               )
-            : null}
+            ) : (
+              <EmptyPostItem />
+            )
+          ) : (
+            <EmptyPostItem />
+          )}
         </ul>
       </div>
     </div>

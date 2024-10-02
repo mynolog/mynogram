@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom'
 const Footer = () => {
   const [footerItems, _] = useState(Object.freeze(footerData.footer))
   return (
-    <footer className="w-3/4 ml-72 mr-52 my-12 flex flex-col justify-center items-center gap-6 text-sm text-gray-500">
+    <footer className="w-3/4 ml-72 mr-52 my-3 flex flex-col justify-center items-center gap-6 text-sm text-gray-500">
       <ul className="w-full flex justify-center items-center gap-3">
         {footerItems.length > 0 &&
           footerItems.map((item) => (
