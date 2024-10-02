@@ -1,5 +1,5 @@
 import type { User } from 'firebase/auth'
-import type { UserProfile } from '../types/auth/UserProfile.ts'
+import type { UserProfile } from '../types/user/UserTypes.ts'
 import { create } from 'zustand'
 
 type AuthState = {

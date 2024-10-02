@@ -1,4 +1,4 @@
-import { UserProfile } from '../types/auth/UserProfile.ts'
+import { UserProfile } from '../types/user/UserTypes.ts'
 import { db } from '../config/firebaseConfig.ts'
 import { doc, getDoc } from 'firebase/firestore'
 
