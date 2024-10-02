@@ -15,15 +15,21 @@ type AuthState = {
   setUserProfile: (userProfile: UserProfile | null) => void
 }
 
-export const useAuthStore = create<AuthState>((set) => ({
-  user: null,
-  isAuthenticated: false,
-  isSignUpRequired: true,
-  uid: null,
-  userProfile: null,
-  setUser: (user: User | null) => set({ user }),
-  setIsAuthenticated: (isAuthenticated) => set({ isAuthenticated }),
-  setIsSignUpRequired: (isSignUpRequired) => set({ isSignUpRequired }),
-  setUid: (uid) => set({ uid }),
-  setUserProfile: (userProfile: UserProfile | null) => set({ userProfile }),
-}))
+export const useAuthStore = create<AuthState>((set) => {
+  // TODO: 새로고침 시에도 로그인 유지
+  // const storedUser = localStorage.getItem('user')
+  // const storedUserProfile = localStorage.getItem('userProfile')
+  // const storedIsAuthenticated = localStorage.getItem('isAuthenticated')
+  return {
+    user: null,
+    isAuthenticated: false,
+    isSignUpRequired: true,
+    uid: null,
+    userProfile: null,
+    setUser: (user: User | null) => set({ user }),
+    setIsAuthenticated: (isAuthenticated) => set({ isAuthenticated }),
+    setIsSignUpRequired: (isSignUpRequired) => set({ isSignUpRequired }),
+    setUid: (uid) => set({ uid }),
+    setUserProfile: (userProfile: UserProfile | null) => set({ userProfile }),
+  }
+})
