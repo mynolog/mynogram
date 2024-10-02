@@ -1,3 +1,4 @@
+import { useState } from 'react'
 import useModalStore from '../../../store/modalStore.ts'
 import SelectImageModal from '../modalBody/SelectImageModal.tsx'
 import CreatePostModal from '../modalBody/CreatePostModal.tsx'
@@ -7,6 +8,7 @@ import CommonButton from '../../common/button/CommonButton.tsx'
 import { IoClose } from 'react-icons/io5'
 
 const ModalContainer = () => {
+  const [file, setFile] = useState<File | null>(null)
   const { activeModal, closeModal } = useModalStore()
 
   if (!activeModal) {
@@ -16,9 +18,9 @@ const ModalContainer = () => {
   const renderModal = () => {
     switch (activeModal) {
       case 'select':
-        return <SelectImageModal />
+        return <SelectImageModal setFile={setFile} />
       case 'create':
-        return <CreatePostModal />
+        return <CreatePostModal file={file} />
       case 'edit':
         return <EditPostModal />
       case 'delete':
@@ -38,7 +40,7 @@ const ModalContainer = () => {
       className={`flex items-center justify-center fixed top-0 h-full right-0 left-0 z-50 bg-gray-800 bg-opacity-40 rounded-lg`}
     >
       <div className="relative w-full h-full flex justify-center items-center">
-        <div className="bg-white rounded-xl shadow-md p-3 max-w-[500px] w-full h-3/4 flex flex-col justify-center">
+        <div className="bg-white rounded-xl shadow-md p-3 max-w-[670px] w-full flex flex-col justify-center">
           {renderModal()}
         </div>
         <div className="absolute top-3 right-3">
