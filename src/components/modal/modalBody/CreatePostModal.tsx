@@ -5,7 +5,7 @@ import { useAuthStore } from '../../../store/authStore.ts'
 import CommonButton from '../../common/button/CommonButton.tsx'
 import { TbShare3 } from 'react-icons/tb'
 import modalStore from '../../../store/modalStore.ts'
-import { IoIosArrowBack } from 'react-icons/io'
+import { IoArrowBack } from 'react-icons/io5'
 
 type CreatePostModalProps = {
   file: File | null
@@ -44,7 +44,7 @@ const CreatePostModal = ({ file, setFile }: CreatePostModalProps) => {
             bgColor="#ffff"
             onClick={handleSwitchToSelectMode}
           >
-            <IoIosArrowBack className="text-black text-2xl mb-1" />
+            <IoArrowBack className="text-black text-2xl mb-1" />
           </CommonButton>
           <h2 className="flex-1 text-center font-bold mb-2">
             새 게시물 만들기
