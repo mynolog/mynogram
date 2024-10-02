@@ -1,0 +1,69 @@
+{
+  "footer" :  [
+    {
+      "id": "meta",
+      "title": "Meta",
+      "to": "/"
+    },
+    {
+      "id": "description",
+      "title": "소개",
+      "to": "/"
+    },
+    {
+      "id": "blog",
+      "title": "블로그",
+      "to": "/"
+    },
+    {
+      "id": "careers",
+      "title": "채용 정보",
+      "to": "/"
+    },
+    {
+      "id": "help",
+      "title": "도움말",
+      "to": "/"
+    },
+    {
+      "id": "api",
+      "title": "API",
+      "to": "/"
+    },
+    {
+      "id": "privacy",
+      "title": "개인정보처리방침",
+      "to": "/"
+    },
+    {
+      "id": "terms",
+      "title": "약관",
+      "to": "/"
+    },
+    {
+      "id": "locations",
+      "title": "위치",
+      "to": "/"
+    },
+    {
+      "id": "instagram-lite",
+      "title": "Instagram Lite",
+      "to": "/"
+    },
+    {
+      "id": "threads",
+      "title": "Threads",
+      "to": "/"
+    },
+    {
+      "id": "non-user",
+      "title": "연락처 업로드 & 비사용자",
+      "to": "/"
+    },
+    {
+      "id": "meta-verified",
+      "title": "Meta Verified",
+      "to": "/"
+    }
+  ]
+}

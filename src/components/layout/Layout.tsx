@@ -1,13 +1,13 @@
 import { Outlet } from 'react-router-dom'
 import Nav from '../partials/nav/Nav.tsx'
+import Footer from '../partials/footer/Footer.tsx'
 
 const Layout = () => {
   return (
-    <div className="w-full h-screen flex">
+    <div className="w-full h-screen flex flex-col">
       <Nav />
-      <main className="w-full ml-72 mr-20">
-        <Outlet />
-      </main>
+      <Outlet />
+      <Footer />
     </div>
   )
 }

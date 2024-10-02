@@ -4,7 +4,7 @@ const Home = () => {
   const { userProfile } = useAuthStore()
 
   return (
-    <div>
+    <main className="w-3/4 ml-72 mr-52 my-12">
       {userProfile && (
         <>
           <h2>{userProfile.id}</h2>
@@ -14,7 +14,7 @@ const Home = () => {
           <h2>게시물 : {userProfile.follows}</h2>
         </>
       )}
-    </div>
+    </main>
   )
 }
 
