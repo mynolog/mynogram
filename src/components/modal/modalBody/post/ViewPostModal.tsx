@@ -33,7 +33,7 @@ const ViewPostModal = ({ selectedPost }: ViewPostModalProps) => {
 
   const handleSwitchToViewMode = () => {
     if (textAreaRef.current && newTextAreaRef.current) {
-      setIsPostEditMode(true)
+      setIsPostEditMode(false)
       textAreaRef.current.hidden = false
       newTextAreaRef.current.hidden = true
     }
