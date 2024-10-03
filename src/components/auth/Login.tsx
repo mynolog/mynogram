@@ -8,7 +8,6 @@ import CommonButton from '../common/button/CommonButton.tsx'
 import useFirebase from '../../hooks/useFirebase.tsx'
 import useToastStore from '../../store/toastStore.ts'
 import { firebaseUserService } from '../../service/firebaseUserService.ts'
-import { query } from 'firebase/firestore'
 
 const Login = () => {
   const addToast = useToastStore((state) => state.addToast)

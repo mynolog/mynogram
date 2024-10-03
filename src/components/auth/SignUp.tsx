@@ -20,19 +20,32 @@ const SignUp = () => {
 
   const handleSignUpSubmit = async (e: MouseEvent<HTMLButtonElement>) => {
     e.preventDefault()
-    const newUserForm = { ...form, posts: 0, followers: 0, follows: 0 }
-    if (!uid) {
-      resetForm()
-      navigate('/login')
-    } else {
-      const result = await firebaseAuthService.signUp(uid, newUserForm)
-      if (!result) {
-        return
+
+    if (form.id.trim() === '') {
+      addToast('아이디는 필수입니다.', 'delete')
+      return
+    }
+    if (form.name.trim() === '') {
+      addToast('이름은 필수입니다.', 'delete')
+      return
+    }
+    try {
+      const newUserForm = { ...form, posts: 0, followers: 0, follows: 0 }
+      if (!uid) {
+        resetForm()
+        navigate('/login')
+      } else {
+        const result = await firebaseAuthService.signUp(uid, newUserForm)
+        if (!result) {
+          return
+        }
+        addToast('✅ 회원가입 완료: 로그인 페이지로 이동합니다!', 'update')
+        setIsSignUpRequired(false)
+        setIsAuthenticated(true)
+        navigate('/login')
       }
-      addToast('✅ 회원가입 완료: 로그인 페이지로 이동합니다!', 'update')
-      setIsSignUpRequired(false)
-      setIsAuthenticated(true)
-      navigate('/login')
+    } catch (e) {
+      console.error(e)
     }
   }
   return (
@@ -45,14 +58,12 @@ const SignUp = () => {
             value={form.id}
             label="ID*"
             name="id"
-            required={true}
             onChange={handleFormChange}
           />
           <CommonInput
             value={form.name}
             label="이름*"
             name="name"
-            required={true}
             onChange={handleFormChange}
           />
           <CommonInput
