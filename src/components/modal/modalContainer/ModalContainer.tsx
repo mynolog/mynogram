@@ -1,3 +1,4 @@
+import type { MouseEvent } from 'react'
 import { useState } from 'react'
 import useModalStore from '../../../store/modalStore.ts'
 import SelectImageModal from '../modalBody/post/SelectImageModal.tsx'
@@ -41,13 +42,23 @@ const ModalContainer = () => {
     closeModal()
   }
 
+  const handleModalOverlayClick = (e: MouseEvent<HTMLDivElement>) => {
+    e.stopPropagation()
+    closeModal()
+  }
+  const handleContentsClick = (e: MouseEvent<HTMLDivElement>) => {
+    e.stopPropagation()
+  }
+
   return (
     <div
       className={`flex items-center justify-center fixed top-0 h-full right-0 left-0 z-50 bg-gray-800 bg-opacity-40 rounded-lg`}
+      onClick={handleModalOverlayClick}
     >
       <div className="relative w-full h-full flex justify-center items-center">
         <div
           className={`bg-white rounded-xl shadow-md p-3 max-w-[670px] w-full flex flex-col justify-center`}
+          onClick={handleContentsClick}
         >
           {renderModal()}
         </div>
