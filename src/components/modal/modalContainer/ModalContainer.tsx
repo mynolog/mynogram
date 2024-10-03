@@ -2,8 +2,6 @@ import { useState } from 'react'
 import useModalStore from '../../../store/modalStore.ts'
 import SelectImageModal from '../modalBody/post/SelectImageModal.tsx'
 import CreatePostModal from '../modalBody/post/CreatePostModal.tsx'
-import EditPostModal from '../modalBody/post/EditPostModal.tsx'
-import DeletePostModal from '../modalBody/post/DeletePostModal.tsx'
 import CommonButton from '../../common/button/CommonButton.tsx'
 import { IoClose } from 'react-icons/io5'
 import LogoutConfirmModal from '../modalBody/auth/LogoutConfirmModal.tsx'
@@ -25,10 +23,6 @@ const ModalContainer = () => {
         return <SelectImageModal setFile={setFile} />
       case 'create':
         return <CreatePostModal file={file} setFile={setFile} />
-      case 'edit':
-        return <EditPostModal />
-      case 'delete':
-        return <DeletePostModal />
       case 'view':
         if (!selectedPost) {
           console.error('게시물이 존재하지 않음: 관리자에게 문의 필요')
