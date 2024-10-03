@@ -1,6 +1,6 @@
 import type { MouseEvent } from 'react'
 import CommonButton from '../common/button/CommonButton.tsx'
-import { useAuthStore } from '../../store/authStore.ts'
+import useAuthStore from '../../store/authStore.ts'
 import Logo from '../common/logo/Logo.tsx'
 import CommonInput from '../common/input/CommonInput.tsx'
 import useForm from '../../hooks/useForm'

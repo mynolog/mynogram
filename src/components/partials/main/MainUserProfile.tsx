@@ -1,4 +1,4 @@
-import { useAuthStore } from '../../../store/authStore.ts'
+import useAuthStore from '../../../store/authStore.ts'
 import CommonButton from '../../common/button/CommonButton.tsx'
 import { CiUser, CiSettings } from 'react-icons/ci'
 import { FaThreads } from 'react-icons/fa6'

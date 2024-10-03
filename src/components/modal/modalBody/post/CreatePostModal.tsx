@@ -1,6 +1,6 @@
 import type { ChangeEvent, Dispatch, SetStateAction } from 'react'
 import { useEffect, useState } from 'react'
-import { useAuthStore } from '../../../../store/authStore.ts'
+import useAuthStore from '../../../../store/authStore.ts'
 import CommonButton from '../../../common/button/CommonButton.tsx'
 import { TbShare3 } from 'react-icons/tb'
 import modalStore from '../../../../store/modalStore.ts'

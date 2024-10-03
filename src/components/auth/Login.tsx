@@ -1,4 +1,4 @@
-import { useAuthStore } from '../../store/authStore.ts'
+import useAuthStore from '../../store/authStore.ts'
 import { Navigate, useNavigate } from 'react-router-dom'
 import { firebaseAuthService } from '../../service/firebaseAuthService.ts'
 import { FaGoogle } from 'react-icons/fa'

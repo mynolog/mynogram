@@ -1,4 +1,4 @@
-import { useAuthStore } from '../../store/authStore.ts'
+import useAuthStore from '../../store/authStore.ts'
 import { firebaseAuthService } from '../../service/firebaseAuthService.ts'
 import CommonButton from '../common/button/CommonButton.tsx'
 import useToastStore from '../../store/toastStore.ts'

@@ -1,11 +1,14 @@
+import type { Collection } from '../types/firebase/firebaseTypes.ts'
 import { UserProfile } from '../types/user/UserTypes.ts'
 import { db } from '../config/firebaseConfig.ts'
 import { doc, getDoc } from 'firebase/firestore'
 
+const USER: Collection = 'user'
+
 export const firebaseUserService = {
   async getUserByUid(uid: string): Promise<UserProfile | null> {
     try {
-      const userDocRef = doc(db, 'user', uid)
+      const userDocRef = doc(db, USER, uid)
       const userDoc = await getDoc(userDocRef)
       if (userDoc.exists()) {
         return userDoc.data() as UserProfile

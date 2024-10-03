@@ -3,6 +3,8 @@ import type { UserProfile } from '../types/user/UserTypes.ts'
 import { create } from 'zustand'
 import { persist, createJSONStorage } from 'zustand/middleware'
 
+type LocalStorageKeys = 'user' | 'isAuthenticated' | 'userProfile'
+
 type AuthState = {
   isAuthenticated: boolean
   setIsAuthenticated: (isAuthenticated: boolean) => void
@@ -15,6 +17,10 @@ type AuthState = {
   userProfile: UserProfile | null
   setUserProfile: (userProfile: UserProfile | null) => void
 }
+
+const USER: LocalStorageKeys = 'user'
+const IS_AUTHENTICATE: LocalStorageKeys = 'isAuthenticated'
+const USER_PROFILE: LocalStorageKeys = 'userProfile'
 
 const loadStoredData = () => {
   const storedUser = localStorage.getItem('user')
@@ -32,24 +38,24 @@ const loadStoredData = () => {
 
 const initialState = loadStoredData()
 
-export const useAuthStore = create<AuthState>()(
+const useAuthStore = create<AuthState>()(
   persist(
     (set) => ({
       ...initialState,
       uid: null,
       setUser: (user: User | null) => {
         set({ user })
-        localStorage.setItem('user', JSON.stringify(user))
+        localStorage.setItem(USER, JSON.stringify(user))
       },
       setIsAuthenticated: (isAuthenticated) => {
         set({ isAuthenticated })
-        localStorage.setItem('isAuthenticated', JSON.stringify(isAuthenticated))
+        localStorage.setItem(IS_AUTHENTICATE, JSON.stringify(isAuthenticated))
       },
       setIsSignUpRequired: (isSignUpRequired) => set({ isSignUpRequired }),
       setUid: (uid) => set({ uid }),
       setUserProfile: (userProfile: UserProfile | null) => {
         set({ userProfile })
-        localStorage.setItem('userProfile', JSON.stringify(userProfile))
+        localStorage.setItem(USER_PROFILE, JSON.stringify(userProfile))
       },
     }),
     {
@@ -58,3 +64,5 @@ export const useAuthStore = create<AuthState>()(
     },
   ),
 )
+
+export default useAuthStore

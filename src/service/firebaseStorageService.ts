@@ -13,9 +13,10 @@ import {
   where,
 } from 'firebase/firestore'
 import { UserProfile } from '../types/user/UserTypes.ts'
+import { Collection } from '../types/firebase/firebaseTypes.ts'
 
-const COLLECTION_POSTS = 'posts'
-const COLLECTION_USER = 'user'
+const POSTS: Collection = 'posts'
+const USER: Collection = 'user'
 
 export const firebaseStorageService = {
   async uploadFile(targetFile: File, targetPost: Post) {
@@ -23,7 +24,7 @@ export const firebaseStorageService = {
       const storageRef = ref(storage, `posts/${targetFile.name}`)
       const uploadResult = await uploadBytes(storageRef, targetFile)
       const fileUrl = await getDownloadURL(uploadResult.ref)
-      const collectionRef = collection(db, COLLECTION_POSTS)
+      const collectionRef = collection(db, POSTS)
       await addDoc(collectionRef, {
         ...targetPost,
         url: fileUrl,
@@ -37,7 +38,7 @@ export const firebaseStorageService = {
 
   async findPosts(callback: (data: Post[]) => void) {
     try {
-      const collectionRef = collection(db, COLLECTION_POSTS)
+      const collectionRef = collection(db, POSTS)
       const q = query(collectionRef, orderBy('createdAt', 'desc'))
       return onSnapshot(q, (snapshot) => {
         const data = snapshot.docs.map((doc) => ({
@@ -57,7 +58,7 @@ export const firebaseStorageService = {
     callback: (userProfile: UserProfile | null) => void,
   ) {
     try {
-      const collectionRef = collection(db, COLLECTION_POSTS)
+      const collectionRef = collection(db, POSTS)
       const q = query(collectionRef, where('uid', '==', uid))
 
       return onSnapshot(q, async (querySnapshot) => {
@@ -66,7 +67,7 @@ export const firebaseStorageService = {
           id: doc.id,
         }))
 
-        const docRef = doc(db, COLLECTION_USER, uid)
+        const docRef = doc(db, USER, uid)
         const userDoc = await getDoc(docRef)
 
         if (userDoc.exists()) {

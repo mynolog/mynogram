@@ -5,7 +5,7 @@ import { firebaseStorageService } from '../../../service/firebaseStorageService.
 import { BsGrid3X3 } from 'react-icons/bs'
 import { FaHashtag } from 'react-icons/fa6'
 import { FaRegStar } from 'react-icons/fa'
-import { useAuthStore } from '../../../store/authStore.ts'
+import useAuthStore from '../../../store/authStore.ts'
 import EmptyPostItem from './EmptyPostItem.tsx'
 import useModalStore from '../../../store/modalStore.ts'
 import usePostStore from '../../../store/postStore.ts'

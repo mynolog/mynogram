@@ -1,5 +1,5 @@
 import { useEffect } from 'react'
-import { useAuthStore } from '../store/authStore.ts'
+import useAuthStore from '../store/authStore.ts'
 
 export const useTitle = () => {
   const { userProfile } = useAuthStore()
