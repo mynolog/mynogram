@@ -13,7 +13,12 @@ const NavList = () => {
   return (
     <ul className="w-full flex flex-col gap-2">
       <NavItem iconId="home">
-        <Link to="/">홈</Link>
+        <Link
+          to="/"
+          style={{ display: 'block', width: '100%', height: '100%' }}
+        >
+          홈
+        </Link>
       </NavItem>
       <NavItem iconId="search">
         <Link to="/">검색</Link>
@@ -31,10 +36,20 @@ const NavList = () => {
         <Link to="/">알림</Link>
       </NavItem>
       <NavItem iconId="upload" onClick={handleModalOpen('select')}>
-        <button>만들기</button>
+        <Link
+          to="/"
+          style={{ display: 'block', width: '100%', height: '100%' }}
+        >
+          만들기
+        </Link>
       </NavItem>
       <NavItem iconId="profile">
-        <Link to="/">프로필</Link>
+        <Link
+          to="/my-page"
+          style={{ display: 'block', width: '100%', height: '100%' }}
+        >
+          나의 페이지
+        </Link>
       </NavItem>
     </ul>
   )

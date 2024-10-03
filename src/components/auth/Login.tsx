@@ -5,7 +5,6 @@ import { FaGoogle } from 'react-icons/fa'
 import { FaGithub } from 'react-icons/fa6'
 import Logo from '../common/logo/Logo.tsx'
 import CommonButton from '../common/button/CommonButton.tsx'
-import useFirebase from '../../hooks/useFirebase.tsx'
 import useToastStore from '../../store/toastStore.ts'
 import { firebaseUserService } from '../../service/firebaseUserService.ts'
 
@@ -20,11 +19,14 @@ const Login = () => {
     setUid,
     setUserProfile,
   } = useAuthStore()
-  const { checkUserExists } = useFirebase()
   const navigate = useNavigate()
 
   const handleLoginClick = async (provider: 'google' | 'github') => {
     setIsSignUpRequired(true)
+    setIsAuthenticated(false)
+    setUser(null)
+    setUserProfile(null)
+    setUid(null)
 
     const authProviders = {
       google: firebaseAuthService.googleLogin,
@@ -34,24 +36,25 @@ const Login = () => {
     try {
       const loginUser = await authProviders[provider]()
       if (loginUser) {
+        setUser(loginUser)
+        setUid(loginUser.uid)
         const loginUserProfile = await firebaseUserService.getUserByUid(
           loginUser.uid,
         )
-        if (loginUserProfile) {
-          setUserProfile(loginUserProfile)
-        }
-        const isRegistered = await checkUserExists(loginUser.uid)
-
-        if (!isRegistered) {
+        // 유저 정보 없으면: 비회원 -> 회원가입 페이지로 이동
+        if (!loginUserProfile) {
           navigate('/signup')
           addToast('⚠️ 비회원: 회원가입 페이지로 이동합니다.', 'update')
-        } else {
-          setIsSignUpRequired(false)
+          // 나머지 회원 인증 관련 상태처리는 SignUp에서 담당
+          return
         }
-        addToast('🔓 로그인 성공: 환영합니다!', 'success')
+        // 유저 정보 있으면: 회원 -> 회원 인증 관련 상태 처리 후 홈으로 이동
         setUser(loginUser)
+        setUserProfile(loginUserProfile)
+        setIsSignUpRequired(false)
         setUid(loginUser.uid)
         setIsAuthenticated(true)
+        addToast('🔓 로그인 성공: 환영합니다!', 'success')
       }
     } catch (error) {
       console.log('로그인 실패', error)

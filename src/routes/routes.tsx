@@ -1,7 +1,8 @@
 import { createBrowserRouter, RouterProvider } from 'react-router-dom'
 import Layout from '../components/layout/Layout.tsx'
-import Home from '../components/home/Home.tsx'
+import Home from '../pages/home/Home.tsx'
 import Login from '../components/auth/Login.tsx'
+import MyPage from '../pages/myPage/MyPage.tsx'
 import SignUp from '../components/auth/SignUp.tsx'
 import ProtectedRoute from './protectedRoute/ProtectedRoute.tsx'
 import PublicOnlyRoute from './PublicOnlyRoute/PublicOnlyRoute.tsx'
@@ -19,6 +20,10 @@ export default function AppRouter() {
         {
           index: true,
           element: <Home />,
+        },
+        {
+          path: '/my-page',
+          element: <MyPage />,
         },
       ],
     },

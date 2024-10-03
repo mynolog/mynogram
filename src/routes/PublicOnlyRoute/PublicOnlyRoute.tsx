@@ -8,7 +8,6 @@ type PublicOnlyRouteProps = {
 
 const PublicOnlyRoute = ({ children }: PublicOnlyRouteProps) => {
   const { isAuthenticated } = useAuthStore()
-  console.log(isAuthenticated)
   return !isAuthenticated ? <>{children}</> : <Navigate to={'/'} />
 }
 

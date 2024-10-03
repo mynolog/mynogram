@@ -1,7 +1,5 @@
 import type { Post } from '../../../types/post/PostTypes.ts'
-import { useEffect, useState } from 'react'
 import CommonHr from '../../common/hr/CommonHr.tsx'
-import { firebaseStorageService } from '../../../service/firebaseStorageService.ts'
 import { BsGrid3X3 } from 'react-icons/bs'
 import { FaHashtag } from 'react-icons/fa6'
 import { FaRegStar } from 'react-icons/fa'
@@ -9,24 +7,13 @@ import useAuthStore from '../../../store/authStore.ts'
 import EmptyPostItem from './EmptyPostItem.tsx'
 import useModalStore from '../../../store/modalStore.ts'
 import usePostStore from '../../../store/postStore.ts'
+import useAllPostsStore from '../../../store/allPostsStore.ts'
 
-const MainUserPost = () => {
-  const [storedPosts, setStoredPosts] = useState<Post[]>([])
+const UserPost = () => {
+  const { storedPosts } = useAllPostsStore()
   const { uid } = useAuthStore()
   const { openModal } = useModalStore()
   const { setSelectedPost } = usePostStore()
-
-  useEffect(() => {
-    const fetchPost = async () => {
-      return await firebaseStorageService.findPosts(setStoredPosts)
-    }
-    const unsubscribe = fetchPost()
-    return () => {
-      unsubscribe.then((unsub) => {
-        if (unsub) unsub()
-      })
-    }
-  }, [])
 
   const handleModalOpen = (post: Post) => {
     setSelectedPost(post)
@@ -80,4 +67,4 @@ const MainUserPost = () => {
   )
 }
 
-export default MainUserPost
+export default UserPost

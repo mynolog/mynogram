@@ -27,9 +27,11 @@ const loadStoredData = () => {
   const storedIsAuthenticated = localStorage.getItem('isAuthenticated')
   const storedUserProfile = localStorage.getItem('userProfile')
   const storedIsSignUpRequired = localStorage.getItem('isSignUpRequired')
+  const storedUid = localStorage.getItem('uid')
 
   return {
     user: storedUser ? JSON.parse(storedUser) : null,
+    uid: storedUid ? JSON.parse(storedUid) : null,
     isAuthenticated: storedIsAuthenticated === 'true',
     userProfile: storedUserProfile ? JSON.parse(storedUserProfile) : null,
     isSignUpRequired: storedIsSignUpRequired === 'true',
@@ -42,7 +44,6 @@ const useAuthStore = create<AuthState>()(
   persist(
     (set) => ({
       ...initialState,
-      uid: null,
       setUser: (user: User | null) => {
         set({ user })
         localStorage.setItem(USER, JSON.stringify(user))

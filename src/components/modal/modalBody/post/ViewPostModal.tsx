@@ -5,13 +5,15 @@ import { GrErase, GrTrash } from 'react-icons/gr'
 import { AiOutlineRollback } from 'react-icons/ai'
 import { TbShare3 } from 'react-icons/tb'
 import { formatCreatedAt } from '../../../../utils/formatCreatetAt.ts'
+import useAuthStore from '../../../../store/authStore.ts'
 
 type ViewPostModalProps = {
   selectedPost: Post
 }
 
 const ViewPostModal = ({ selectedPost }: ViewPostModalProps) => {
-  const { author, text, url, createdAt } = selectedPost
+  const { uid } = useAuthStore()
+  const { author, text, url, createdAt, uid: selectedUid } = selectedPost
   const timestamp = formatCreatedAt(createdAt, 'ko-KR', 'Asia/Seoul')
   const textAreaRef = useRef<HTMLTextAreaElement>(null)
   const newTextAreaRef = useRef<HTMLTextAreaElement>(null)
@@ -76,43 +78,46 @@ const ViewPostModal = ({ selectedPost }: ViewPostModalProps) => {
             <span className="text-gray-400 font-semibold text-xs">
               {timestamp}
             </span>
-            <div className="flex gap-3">
-              {isPostEditMode ? (
-                <>
-                  <CommonButton
-                    fontSize="0.85rem"
-                    width="90px"
-                    onClick={handleSwitchToEditMode}
-                  >
-                    <TbShare3 />
-                    <span className="ml-2">공유</span>
-                  </CommonButton>
-                  <CommonButton
-                    fontSize="0.85rem"
-                    width="90px"
-                    onClick={handleSwitchToViewMode}
-                  >
-                    <AiOutlineRollback />
-                    <span className="ml-2">취소</span>
-                  </CommonButton>
-                </>
-              ) : (
-                <>
-                  <CommonButton
-                    fontSize="0.85rem"
-                    width="90px"
-                    onClick={handleSwitchToEditMode}
-                  >
-                    <GrErase />
-                    <span className="ml-2">수정</span>
-                  </CommonButton>
-                  <CommonButton fontSize="0.85rem" width="90px">
-                    <GrTrash />
-                    <span className="ml-2">삭제</span>
-                  </CommonButton>
-                </>
-              )}
-            </div>
+
+            {selectedUid === uid && (
+              <div className="flex gap-3">
+                {isPostEditMode ? (
+                  <>
+                    <CommonButton
+                      fontSize="0.85rem"
+                      width="90px"
+                      onClick={handleSwitchToEditMode}
+                    >
+                      <TbShare3 />
+                      <span className="ml-2">공유</span>
+                    </CommonButton>
+                    <CommonButton
+                      fontSize="0.85rem"
+                      width="90px"
+                      onClick={handleSwitchToViewMode}
+                    >
+                      <AiOutlineRollback />
+                      <span className="ml-2">취소</span>
+                    </CommonButton>
+                  </>
+                ) : (
+                  <>
+                    <CommonButton
+                      fontSize="0.85rem"
+                      width="90px"
+                      onClick={handleSwitchToEditMode}
+                    >
+                      <GrErase />
+                      <span className="ml-2">수정</span>
+                    </CommonButton>
+                    <CommonButton fontSize="0.85rem" width="90px">
+                      <GrTrash />
+                      <span className="ml-2">삭제</span>
+                    </CommonButton>
+                  </>
+                )}
+              </div>
+            )}
           </div>
         </div>
       </div>

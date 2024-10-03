@@ -5,7 +5,7 @@ import { FaThreads } from 'react-icons/fa6'
 import { useEffect } from 'react'
 import { firebaseStorageService } from '../../../service/firebaseStorageService.ts'
 
-const MainUserProfile = () => {
+const UserProfile = () => {
   const { userProfile, uid, setUserProfile } = useAuthStore()
 
   useEffect(() => {
@@ -24,13 +24,26 @@ const MainUserProfile = () => {
   return (
     <div className="w-full flex">
       <div className="w-1/3 flex justify-center items-center">
-        <div
-          className="bg-gray-100 rounded-full flex justify-center items-center cursor-pointer"
-          style={{ width: '130px', height: '130px' }}
-        >
-          {/* user에 프로필 이미지가 없으면 기본 프로필 적용 */}
-          <CiUser className="text-7xl text-gray-500" />
-        </div>
+        {userProfile?.avatarUrl ? (
+          <div
+            className="rounded-full flex justify-center items-center cursor-pointer"
+            style={{ width: '130px', height: '130px' }}
+          >
+            <img
+              src={userProfile.avatarUrl}
+              alt={userProfile.name}
+              className="w-full h-full object-cover object-center rounded-full"
+            />
+          </div>
+        ) : (
+          <div
+            className="bg-gray-100 rounded-full flex justify-center items-center cursor-pointer"
+            style={{ width: '130px', height: '130px' }}
+          >
+            {/* userProfile에 avatarUrl: null 이라면 기본 프로필 적용 */}
+            <CiUser className="text-7xl text-gray-500" />
+          </div>
+        )}
       </div>
       <div className="w-2/3">
         {userProfile && (
@@ -90,4 +103,4 @@ const MainUserProfile = () => {
   )
 }
 
-export default MainUserProfile
+export default UserProfile

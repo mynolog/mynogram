@@ -10,7 +10,7 @@ import useToastStore from '../../store/toastStore.ts'
 
 const SignUp = () => {
   const addToast = useToastStore((state) => state.addToast)
-  const { uid, setIsSignUpRequired, setIsAuthenticated } = useAuthStore()
+  const { uid, setIsSignUpRequired, setIsAuthenticated, user } = useAuthStore()
   const navigate = useNavigate()
   const { form, handleFormChange, resetForm } = useForm({
     id: '',
@@ -30,22 +30,30 @@ const SignUp = () => {
       return
     }
     try {
-      const newUserForm = { ...form, posts: 0, followers: 0, follows: 0 }
+      const newUserForm = {
+        ...form,
+        posts: 0,
+        followers: 0,
+        follows: 0,
+        avatarUrl: user?.photoURL || null,
+      }
       if (!uid) {
         resetForm()
         navigate('/login')
-      } else {
-        const result = await firebaseAuthService.signUp(uid, newUserForm)
-        if (!result) {
-          return
-        }
-        addToast('✅ 회원가입 완료: 로그인 페이지로 이동합니다!', 'update')
-        setIsSignUpRequired(false)
-        setIsAuthenticated(true)
-        navigate('/login')
+        return
       }
+      const result = await firebaseAuthService.signUp(uid, newUserForm)
+      if (!result) {
+        return
+      }
+
+      setIsSignUpRequired(false)
+      setIsAuthenticated(true)
+      navigate('/')
+      addToast('✅ 회원가입 완료: 홈으로 이동합니다.', 'update')
     } catch (e) {
-      console.error(e)
+      console.error('회원가입 실패: 다시 시도해주세요.', e)
+      addToast('회원가입 실패: 다시 시도해주세요.', 'delete')
     }
   }
   return (

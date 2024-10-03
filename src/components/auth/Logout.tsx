@@ -20,8 +20,13 @@ const Logout = ({
 }: LogoutProps) => {
   const { closeModal } = useModalStore()
   const addToast = useToastStore((state) => state.addToast)
-  const { setUser, setIsAuthenticated, setUserProfile, setIsSignUpRequired } =
-    useAuthStore()
+  const {
+    setUser,
+    setIsAuthenticated,
+    setUserProfile,
+    setIsSignUpRequired,
+    setUid,
+  } = useAuthStore()
   const handleLogoutClick = async () => {
     try {
       await firebaseAuthService.logout()
@@ -29,6 +34,7 @@ const Logout = ({
       setIsAuthenticated(false)
       setUserProfile(null)
       setIsSignUpRequired(true)
+      setUid(null)
       closeModal()
       addToast('🔐 로그아웃 완료: 다시 만나요!', 'update')
     } catch (error) {

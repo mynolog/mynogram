@@ -3,9 +3,25 @@ import Toast from './components/toast/Toast.tsx'
 import { useTitle as Title } from './hooks/useTitle'
 import useToastStore from './store/toastStore.ts'
 import Modal from './components/modal/Modal.tsx'
+import { useEffect } from 'react'
+import { firebaseStorageService } from './service/firebaseStorageService.ts'
+import useAllPostsStore from './store/allPostsStore.ts'
 
 function App() {
   const { toasts } = useToastStore()
+  const { setStoredPosts } = useAllPostsStore()
+
+  useEffect(() => {
+    const fetchPost = async () => {
+      return await firebaseStorageService.findPosts(setStoredPosts)
+    }
+    const unsubscribe = fetchPost()
+    return () => {
+      unsubscribe.then((unsub) => {
+        if (unsub) unsub()
+      })
+    }
+  }, [])
 
   return (
     <>
