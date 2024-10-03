@@ -10,7 +10,8 @@ import useToastStore from '../../store/toastStore.ts'
 
 const SignUp = () => {
   const addToast = useToastStore((state) => state.addToast)
-  const { uid, setIsSignUpRequired, setIsAuthenticated, user } = useAuthStore()
+  const { uid, setIsSignUpRequired, setIsAuthenticated, avatarUrl } =
+    useAuthStore()
   const navigate = useNavigate()
   const { form, handleFormChange, resetForm } = useForm({
     id: '',
@@ -35,7 +36,7 @@ const SignUp = () => {
         posts: 0,
         followers: 0,
         follows: 0,
-        avatarUrl: user?.photoURL || null,
+        avatarUrl: avatarUrl || null,
       }
       if (!uid) {
         resetForm()

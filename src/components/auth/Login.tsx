@@ -13,20 +13,20 @@ const Login = () => {
   const {
     isAuthenticated,
     isSignUpRequired,
-    setUser,
     setIsAuthenticated,
     setIsSignUpRequired,
     setUid,
     setUserProfile,
+    setAvatarUrl,
   } = useAuthStore()
   const navigate = useNavigate()
 
   const handleLoginClick = async (provider: 'google' | 'github') => {
     setIsSignUpRequired(true)
     setIsAuthenticated(false)
-    setUser(null)
     setUserProfile(null)
     setUid(null)
+    setAvatarUrl(null)
 
     const authProviders = {
       google: firebaseAuthService.googleLogin,
@@ -36,7 +36,7 @@ const Login = () => {
     try {
       const loginUser = await authProviders[provider]()
       if (loginUser) {
-        setUser(loginUser)
+        setAvatarUrl(loginUser.photoURL)
         setUid(loginUser.uid)
         const loginUserProfile = await firebaseUserService.getUserByUid(
           loginUser.uid,
@@ -49,7 +49,7 @@ const Login = () => {
           return
         }
         // 유저 정보 있으면: 회원 -> 회원 인증 관련 상태 처리 후 홈으로 이동
-        setUser(loginUser)
+        // setUser(loginUser)
         setUserProfile(loginUserProfile)
         setIsSignUpRequired(false)
         setUid(loginUser.uid)
