@@ -1,18 +1,26 @@
 import type { ActiveModalFlag } from '../../../store/modalStore.ts'
 import NavItem from './NavItem.tsx'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import useModalStore from '../../../store/modalStore.ts'
 
 const NavList = () => {
   const { openModal } = useModalStore()
+  const navigate = useNavigate()
 
   const handleModalOpen = (modalId: ActiveModalFlag) => () => {
     openModal(modalId)
   }
 
+  const handleHomeLinkClick = () => {
+    navigate('/')
+  }
+  const handleMyPageLinkClick = () => {
+    navigate('/my-page')
+  }
+
   return (
     <ul className="w-full flex flex-col justify-center gap-2 text-sm">
-      <NavItem iconId="home">
+      <NavItem iconId="home" onClick={handleHomeLinkClick}>
         <Link
           to="/"
           style={{ display: 'block', width: '100%', height: '100%' }}
@@ -43,7 +51,7 @@ const NavList = () => {
           만들기
         </Link>
       </NavItem>
-      <NavItem iconId="profile">
+      <NavItem iconId="profile" onClick={handleMyPageLinkClick}>
         <Link
           to="/my-page"
           style={{ display: 'block', width: '100%', height: '100%' }}
