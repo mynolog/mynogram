@@ -1,7 +1,7 @@
 import type { User } from 'firebase/auth'
 import type { UserProfile } from '../types/user/UserTypes.ts'
 import { create } from 'zustand'
-import { persist } from 'zustand/middleware'
+import { persist, createJSONStorage } from 'zustand/middleware'
 
 type AuthState = {
   isAuthenticated: boolean
@@ -54,8 +54,7 @@ export const useAuthStore = create<AuthState>()(
     }),
     {
       name: 'auth-storage',
-      //TODO: 대체 메서드 찾아보기
-      getStorage: () => localStorage,
+      storage: createJSONStorage(() => localStorage),
     },
   ),
 )
