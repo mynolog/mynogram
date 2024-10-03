@@ -1,6 +1,7 @@
 import type { CSSProperties } from 'react'
 import type { Variant } from '../../store/toastStore.ts'
 import { toastColor } from '../../store/toastStore.ts'
+import { useEffect, useState } from 'react'
 
 type ToastProps = {
   message: string
@@ -9,10 +10,17 @@ type ToastProps = {
 }
 
 const Toast = ({ message, variant, style = {} }: ToastProps) => {
+  const [isVisible, setIsVisible] = useState(false)
+  useEffect(() => {
+    setIsVisible(true)
+    const timer = setTimeout(() => setIsVisible(false), 2900)
+    return () => clearTimeout(timer)
+  }, [])
+
   return (
     <div
       style={{ backgroundColor: toastColor[variant], ...style }}
-      className="z-[999] fixed top-5 right-5 text-lg text-white py-2.5 px-5 rounded-lg shadow-lg transition duration-500 ease-in opacity-100"
+      className={`z-[999] fixed top-5 right-5 text-lg text-white py-2.5 px-5 rounded-lg shadow-lg transition-transform duration-600 ease-in-out transform ${isVisible ? 'translate-x-0' : 'translate-x-[200%]'}`}
     >
       <span>{message}</span>
     </div>
