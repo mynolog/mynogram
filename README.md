@@ -7,7 +7,28 @@
 4. 파이어베이스 연동으로 빠른 프로토타입 구축
 
 ## 기술 스택
-[![Skills](https://skillicons.dev/icons?i=react,ts,tailwind,firebase)](https://skillicons.dev)
+[![React](https://skillicons.dev/icons?i=react)](https://ko.react.dev/)
+[![TypeScript](https://skillicons.dev/icons?i=ts)](https://www.typescriptlang.org/)
+[![TailwindCSS](https://skillicons.dev/icons?i=tailwind)](https://tailwindcss.com/)
+[![Firebase](https://skillicons.dev/icons?i=firebase)](https://firebase.google.com/docs?hl=ko)
+
+## 프로젝트 폴더 구조
+```
+mynogram/  
+├── public/  # 정적 파일
+├── src/  # 소스 코드
+│   ├── components/ # UI 컴포넌트
+│   ├── config/ # 프로젝트 설정
+│   ├── hooks/  # 커스텀 훅
+│   ├── routes/  # 앱의 라우터 
+│   ├── service/  # API 호출 / 데이터 처리
+│   ├── store/  # 전역 상태 관리
+│   ├── types/  # 타입 정의
+│   ├── utils/  # 유틸리티 함수
+│   ├── main.tsx  # 앱의 엔트리 포인트
+│   ├── App.tsx  # 메인 앱 컴포넌트
+│   ├── index.css # 전역 스타일
+```
 
 ## 구현 완료
 - [x] : 네비게이션 바 레이아웃 및 스타일 적용
@@ -20,18 +41,18 @@
 - [x] : 유저 페이지
 - [x] : 모달 컨테이너
 - [x] : 게시물 등록 모달
-- [x] : 게시물 편집 모달
+- [x] : 게시물 보기 모달
+- [x] : 토스트 메시지 UI 적용
 
 ## 구현 필요한 기능
-- [ ] : 게시물 삭제 모달 (편집 모드에서 uid 일치할 경우만 삭제 버튼 활성화)
-- [ ] : 포스트 삭제 확인 모달
+- [ ] : 게시물 편집 모달
+- [ ] : 포스트 삭제 확인 모달 
 - [ ] : 유저 프로필 편집 모달
 
 ## (시간이 남는다면) 추가로 구현하고 싶은 기능
-- [x] : 토스트 메시지 UI 적용
 - [ ] : 유저 프로필 이미지 변경/ 삭제
 - [ ] : 홈 라우트('/') 진입 시 모든 유저의 사진 리스트 출력 
-  - 이게 완료 되면 현재 홈 라우트 페이지는 유저 페이지로 이동
+  - 이게 완료 되면 현재 홈 라우트는 유저 라우트로 이동
 - [ ] : 좋아요 / 댓글
 - [ ] : 반응형 또는 적응형 웹 적용
 
@@ -50,7 +71,7 @@
 
 ## 깃 커밋 메시지 컨벤션
 | 타입       | 내용                       |
-|----------|--------------------------|
+|----------|:-------------------------|
 | feat     | 새로운 기능 추가에 대한 커밋         |
 | style    | 스타일링 수정에 대한 커밋           |
 | refactor | 코드 리팩토링에 대한 커밋           |
