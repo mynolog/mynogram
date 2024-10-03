@@ -30,7 +30,7 @@ const Logout = ({
       setUserProfile(null)
       setIsSignUpRequired(true)
       closeModal()
-      addToast('✅ 로그아웃 완료: 다시 만나요!', 'update')
+      addToast('🔐 로그아웃 완료: 다시 만나요!', 'update')
     } catch (error) {
       console.error('로그아웃 실패', error)
       addToast('🚫 로그아웃 실패: 다시 시도해 주세요.', 'warning')

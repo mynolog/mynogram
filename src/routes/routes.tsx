@@ -2,8 +2,9 @@ import { createBrowserRouter, RouterProvider } from 'react-router-dom'
 import Layout from '../components/layout/Layout.tsx'
 import Home from '../components/home/Home.tsx'
 import Login from '../components/auth/Login.tsx'
-import ProtectedRoute from './protectedRoute/ProtectedRoute.tsx'
 import SignUp from '../components/auth/SignUp.tsx'
+import ProtectedRoute from './protectedRoute/ProtectedRoute.tsx'
+import PublicOnlyRoute from './PublicOnlyRoute/PublicOnlyRoute.tsx'
 
 export default function AppRouter() {
   const routes = createBrowserRouter([
@@ -27,7 +28,11 @@ export default function AppRouter() {
     },
     {
       path: '/signup',
-      element: <SignUp />,
+      element: (
+        <PublicOnlyRoute>
+          <SignUp />
+        </PublicOnlyRoute>
+      ),
     },
   ])
   return <RouterProvider router={routes} />

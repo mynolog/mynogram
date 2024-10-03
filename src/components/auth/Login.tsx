@@ -41,7 +41,6 @@ const Login = () => {
           setUserProfile(loginUserProfile)
         }
         const isRegistered = await checkUserExists(loginUser.uid)
-        console.log(isRegistered)
 
         if (!isRegistered) {
           navigate('/signup')
@@ -49,7 +48,7 @@ const Login = () => {
         } else {
           setIsSignUpRequired(false)
         }
-        addToast('✅ 로그인 성공: 환영합니다!', 'success')
+        addToast('🔓 로그인 성공: 환영합니다!', 'success')
         setUser(loginUser)
         setUid(loginUser.uid)
         setIsAuthenticated(true)
