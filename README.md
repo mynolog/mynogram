@@ -1,4 +1,15 @@
 # Mynogram
+<a href="https://elice-frontend-firebase-18d5b.web.app" style="font-size: 24px;">🔍 구경하러가기</a>
+
+## 미리보기
+### 메인 페이지
+![둘러보기](https://firebasestorage.googleapis.com/v0/b/elice-frontend-firebase-18d5b.appspot.com/o/imgs%2F%E1%84%83%E1%85%AE%E1%86%AF%E1%84%85%E1%85%A5%E1%84%87%E1%85%A9%E1%84%80%E1%85%B5.png?alt=media&token=371bcaf4-b454-4080-80a9-68352df4e7f7)
+### 나의 페이지
+![나의페이지](https://firebasestorage.googleapis.com/v0/b/elice-frontend-firebase-18d5b.appspot.com/o/imgs%2F%E1%84%82%E1%85%A1%E1%84%8B%E1%85%B4%E1%84%91%E1%85%A6%E1%84%8B%E1%85%B5%E1%84%8C%E1%85%B5.png?alt=media&token=0bbb0409-03dd-4f65-91d5-7c532a2851cf)
+### 게시물 생성
+![생성](https://firebasestorage.googleapis.com/v0/b/elice-frontend-firebase-18d5b.appspot.com/o/imgs%2F%E1%84%80%E1%85%A6%E1%84%89%E1%85%B5%E1%84%86%E1%85%AE%E1%86%AF%E1%84%89%E1%85%A2%E1%86%BC%E1%84%89%E1%85%A5%E1%86%BC.png?alt=media&token=2dbb2875-bcbd-4eff-a4d1-ed8c699a8258)
+### 게시물 보기/수정/삭제
+![보기/수정/삭제](https://firebasestorage.googleapis.com/v0/b/elice-frontend-firebase-18d5b.appspot.com/o/imgs%2F%E1%84%80%E1%85%A6%E1%84%89%E1%85%B5%E1%84%86%E1%85%AE%E1%86%AF%E1%84%87%E1%85%A9%E1%84%80%E1%85%B5_%E1%84%89%E1%85%AE%E1%84%8C%E1%85%A5%E1%86%BC_%E1%84%89%E1%85%A1%E1%86%A8%E1%84%8C%E1%85%A6.png?alt=media&token=c5e99deb-3d16-4089-9a91-273186d11e5e)
 
 ## 목표
 1. CRUD에 대한 이해
@@ -45,9 +56,9 @@ mynogram/
 - [x] : 토스트 메시지 UI 적용
 - [x] : 회원가입 시 기본 아바타 설정
 - [x] : 홈 라우트('/') 진입 시 모든 유저의 사진 리스트 출력
+- [x] : 게시물 편집 모달
 
 ## 구현 필요한 기능
-- [ ] : 게시물 편집 모달
 - [ ] : 포스트 삭제 확인 모달 
 - [ ] : 유저 프로필 편집 모달
 
