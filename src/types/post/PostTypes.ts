@@ -4,5 +4,6 @@ export type Post = {
   text: string
   author: string
   createdAt: number
+  updatedAt?: number
   url?: string
 }

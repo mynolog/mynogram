@@ -2,7 +2,6 @@ import type { Post } from '../types/post/PostTypes.ts'
 import { getDownloadURL, ref, uploadBytes } from 'firebase/storage'
 import { db, storage } from '../config/firebaseConfig.ts'
 import {
-  addDoc,
   collection,
   doc,
   getDoc,
@@ -10,6 +9,8 @@ import {
   orderBy,
   query,
   setDoc,
+  updateDoc,
+  deleteDoc,
   where,
 } from 'firebase/firestore'
 import { UserProfile } from '../types/user/UserTypes.ts'
@@ -25,9 +26,11 @@ export const firebaseStorageService = {
       const uploadResult = await uploadBytes(storageRef, targetFile)
       const fileUrl = await getDownloadURL(uploadResult.ref)
       const collectionRef = collection(db, POSTS)
-      await addDoc(collectionRef, {
+      const newDocRef = doc(collectionRef)
+      await setDoc(newDocRef, {
         ...targetPost,
         url: fileUrl,
+        id: newDocRef.id,
       })
       return true
     } catch (e) {
@@ -91,5 +94,30 @@ export const firebaseStorageService = {
       console.error(e)
       callback(null)
     }
+  },
+
+  async updatePost(targetText: string, targetId: string) {
+    try {
+      const docRef = doc(db, POSTS, targetId)
+      await updateDoc(docRef, {
+        text: targetText,
+        updatedAt: Date.now(),
+      })
+      return true
+    } catch (e) {
+      console.error(e)
+    }
+    return false
+  },
+
+  async deletePost(targetId: string) {
+    try {
+      const docRef = doc(db, POSTS, targetId)
+      await deleteDoc(docRef)
+      return true
+    } catch (e) {
+      console.error(e)
+    }
+    return false
   },
 }

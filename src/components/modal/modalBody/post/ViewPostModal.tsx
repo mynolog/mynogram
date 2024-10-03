@@ -6,6 +6,9 @@ import { AiOutlineRollback } from 'react-icons/ai'
 import { TbShare3 } from 'react-icons/tb'
 import { formatCreatedAt } from '../../../../utils/formatCreatetAt.ts'
 import useAuthStore from '../../../../store/authStore.ts'
+import { firebaseStorageService } from '../../../../service/firebaseStorageService.ts'
+import useToastStore from '../../../../store/toastStore.ts'
+import useModalStore from '../../../../store/modalStore.ts'
 
 type ViewPostModalProps = {
   selectedPost: Post
@@ -13,12 +16,22 @@ type ViewPostModalProps = {
 
 const ViewPostModal = ({ selectedPost }: ViewPostModalProps) => {
   const { uid } = useAuthStore()
-  const { author, text, url, createdAt, uid: selectedUid } = selectedPost
+  const {
+    author,
+    text,
+    url,
+    createdAt,
+    uid: selectedUid,
+    id,
+    updatedAt,
+  } = selectedPost
   const timestamp = formatCreatedAt(createdAt, 'ko-KR', 'Asia/Seoul')
   const textAreaRef = useRef<HTMLTextAreaElement>(null)
   const newTextAreaRef = useRef<HTMLTextAreaElement>(null)
   const [newText, setNewText] = useState(text)
   const [isPostEditMode, setIsPostEditMode] = useState<boolean>(false)
+  const { addToast } = useToastStore()
+  const { closeModal } = useModalStore()
 
   const handleTextChange = (e: ChangeEvent<HTMLTextAreaElement>) => {
     setNewText(e.target.value)
@@ -39,6 +52,26 @@ const ViewPostModal = ({ selectedPost }: ViewPostModalProps) => {
       textAreaRef.current.hidden = false
       newTextAreaRef.current.hidden = true
     }
+  }
+
+  const handlePostUpdateClick = async () => {
+    const result = await firebaseStorageService.updatePost(newText, id!)
+    if (!result) {
+      addToast('🚫 게시물 수정 실패: 다시 시도해주세요.', 'warning')
+    }
+    setNewText(text)
+    closeModal()
+    addToast('📝 게시물이 수정되었습니다.', 'update')
+  }
+
+  const handlePostDeleteClick = async () => {
+    const result = await firebaseStorageService.deletePost(id!)
+    if (!result) {
+      addToast('🚫 게시물 삭제 실패: 다시 시도해주세요.', 'warning')
+    }
+    setNewText(text)
+    closeModal()
+    addToast('🗑 게시물이 삭제되었습니다.️', 'delete')
   }
 
   return (
@@ -75,8 +108,13 @@ const ViewPostModal = ({ selectedPost }: ViewPostModalProps) => {
               ref={textAreaRef}
             ></textarea>
 
-            <span className="text-gray-400 font-semibold text-xs">
-              {timestamp}
+            <span className="text-gray-400 font-semibold text-xs flex gap-1">
+              <span>{timestamp}</span>
+              {updatedAt !== 0 && (
+                <span className="text-gray-400 font-semibold text-xs">
+                  (수정됨)
+                </span>
+              )}
             </span>
 
             {selectedUid === uid && (
@@ -86,7 +124,7 @@ const ViewPostModal = ({ selectedPost }: ViewPostModalProps) => {
                     <CommonButton
                       fontSize="0.85rem"
                       width="90px"
-                      onClick={handleSwitchToEditMode}
+                      onClick={handlePostUpdateClick}
                     >
                       <TbShare3 />
                       <span className="ml-2">공유</span>
@@ -110,7 +148,11 @@ const ViewPostModal = ({ selectedPost }: ViewPostModalProps) => {
                       <GrErase />
                       <span className="ml-2">수정</span>
                     </CommonButton>
-                    <CommonButton fontSize="0.85rem" width="90px">
+                    <CommonButton
+                      fontSize="0.85rem"
+                      width="90px"
+                      onClick={handlePostDeleteClick}
+                    >
                       <GrTrash />
                       <span className="ml-2">삭제</span>
                     </CommonButton>

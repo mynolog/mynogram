@@ -45,6 +45,7 @@ const CreatePostModal = ({ file, setFile }: CreatePostModalProps) => {
         text,
         author: userProfile.id,
         createdAt: Date.now(),
+        updatedAt: 0,
       }
       const result = await firebaseStorageService.uploadFile(file, newPost)
       await firebaseStorageService.findPostsByUid(uid, (updatedUserProfile) => {
