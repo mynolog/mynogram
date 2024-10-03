@@ -3,8 +3,22 @@ import { firebaseAuthService } from '../../service/firebaseAuthService.ts'
 import CommonButton from '../common/button/CommonButton.tsx'
 import useToastStore from '../../store/toastStore.ts'
 import { IoMdLogOut } from 'react-icons/io'
+import useModalStore from '../../store/modalStore.ts'
 
-const Logout = () => {
+type LogoutProps = {
+  width?: string
+  fontSize?: string
+  gap?: string
+  title?: string
+}
+
+const Logout = ({
+  width = '90%',
+  fontSize = '0.95rem',
+  gap = '0.5rem',
+  title = '로그아웃',
+}: LogoutProps) => {
+  const { closeModal } = useModalStore()
   const addToast = useToastStore((state) => state.addToast)
   const { setUser, setIsAuthenticated } = useAuthStore()
   const handleLogoutClick = async () => {
@@ -12,6 +26,7 @@ const Logout = () => {
       await firebaseAuthService.logout()
       setUser(null)
       setIsAuthenticated(false)
+      closeModal()
       addToast('✅ 로그아웃 완료: 다시 만나요!', 'update')
     } catch (error) {
       console.error('로그아웃 실패', error)
@@ -20,13 +35,13 @@ const Logout = () => {
   }
   return (
     <CommonButton
-      width="90%"
-      fontSize="0.95rem"
-      gap="0.5rem"
+      width={width}
+      fontSize={fontSize}
+      gap={gap}
       onClick={handleLogoutClick}
     >
       <IoMdLogOut />
-      <span>로그아웃</span>
+      <span>{title}</span>
     </CommonButton>
   )
 }
