@@ -1,9 +1,9 @@
 import type { ChangeEvent, Dispatch, SetStateAction } from 'react'
 import { useRef } from 'react'
-import CommonHr from '../../common/hr/CommonHr.tsx'
+import CommonHr from '../../../common/hr/CommonHr.tsx'
 import { CiImageOn } from 'react-icons/ci'
-import CommonButton from '../../common/button/CommonButton.tsx'
-import useModalStore from '../../../store/modalStore.ts'
+import CommonButton from '../../../common/button/CommonButton.tsx'
+import useModalStore from '../../../../store/modalStore.ts'
 
 type SelectImageModalProps = {
   setFile: Dispatch<SetStateAction<File | null>>

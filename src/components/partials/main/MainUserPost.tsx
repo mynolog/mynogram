@@ -7,10 +7,14 @@ import { FaHashtag } from 'react-icons/fa6'
 import { FaRegStar } from 'react-icons/fa'
 import { useAuthStore } from '../../../store/authStore.ts'
 import EmptyPostItem from './EmptyPostItem.tsx'
+import useModalStore from '../../../store/modalStore.ts'
+import usePostStore from '../../../store/postStore.ts'
 
 const MainUserPost = () => {
   const [storedPosts, setStoredPosts] = useState<Post[]>([])
   const { uid } = useAuthStore()
+  const { openModal } = useModalStore()
+  const { setSelectedPost } = usePostStore()
 
   useEffect(() => {
     const fetchPost = async () => {
@@ -23,6 +27,11 @@ const MainUserPost = () => {
       })
     }
   }, [])
+
+  const handleModalOpen = (post: Post) => {
+    setSelectedPost(post)
+    openModal('view')
+  }
 
   return (
     <div className="w-full px-14 py-4">
@@ -47,7 +56,11 @@ const MainUserPost = () => {
             storedPosts.map(
               (post) =>
                 post.uid === uid && (
-                  <li key={post.id}>
+                  <li
+                    key={post.id}
+                    onClick={() => handleModalOpen(post)}
+                    className="cursor-pointer"
+                  >
                     <img
                       src={post.url}
                       alt={post.author}

@@ -1,16 +1,19 @@
 import { useState } from 'react'
 import useModalStore from '../../../store/modalStore.ts'
-import SelectImageModal from '../modalBody/SelectImageModal.tsx'
-import CreatePostModal from '../modalBody/CreatePostModal.tsx'
-import EditPostModal from '../modalBody/EditPostModal.tsx'
-import DeletePostModal from '../modalBody/DeletePostModal.tsx'
+import SelectImageModal from '../modalBody/post/SelectImageModal.tsx'
+import CreatePostModal from '../modalBody/post/CreatePostModal.tsx'
+import EditPostModal from '../modalBody/post/EditPostModal.tsx'
+import DeletePostModal from '../modalBody/post/DeletePostModal.tsx'
 import CommonButton from '../../common/button/CommonButton.tsx'
 import { IoClose } from 'react-icons/io5'
-import LogoutConfirmModal from '../modalBody/LogoutConfirmModal.tsx'
+import LogoutConfirmModal from '../modalBody/auth/LogoutConfirmModal.tsx'
+import ViewPostModal from '../modalBody/post/ViewPostModal.tsx'
+import usePostStore from '../../../store/postStore.ts'
 
 const ModalContainer = () => {
   const [file, setFile] = useState<File | null>(null)
   const { activeModal, closeModal } = useModalStore()
+  const { selectedPost } = usePostStore()
 
   if (!activeModal) {
     return null
@@ -26,6 +29,12 @@ const ModalContainer = () => {
         return <EditPostModal />
       case 'delete':
         return <DeletePostModal />
+      case 'view':
+        if (!selectedPost) {
+          console.error('게시물이 존재하지 않음: 관리자에게 문의 필요')
+          return null
+        }
+        return <ViewPostModal selectedPost={selectedPost} />
       case 'logout':
         return <LogoutConfirmModal />
       default:

@@ -1,13 +1,12 @@
 import type { ChangeEvent, Dispatch, SetStateAction } from 'react'
 import { useEffect, useState } from 'react'
-import CommonHr from '../../common/hr/CommonHr.tsx'
-import { useAuthStore } from '../../../store/authStore.ts'
-import CommonButton from '../../common/button/CommonButton.tsx'
+import { useAuthStore } from '../../../../store/authStore.ts'
+import CommonButton from '../../../common/button/CommonButton.tsx'
 import { TbShare3 } from 'react-icons/tb'
-import modalStore from '../../../store/modalStore.ts'
+import modalStore from '../../../../store/modalStore.ts'
 import { IoIosArrowBack } from 'react-icons/io'
-import { firebaseStorageService } from '../../../service/firebaseStorageService.ts'
-import useToastStore from '../../../store/toastStore.ts'
+import { firebaseStorageService } from '../../../../service/firebaseStorageService.ts'
+import useToastStore from '../../../../store/toastStore.ts'
 
 type CreatePostModalProps = {
   file: File | null
@@ -17,7 +16,7 @@ type CreatePostModalProps = {
 const CreatePostModal = ({ file, setFile }: CreatePostModalProps) => {
   const [blobUrl, setBlobUrl] = useState<string | null>(null)
   const [text, setText] = useState('')
-  const { userProfile, uid } = useAuthStore()
+  const { userProfile, uid, setUserProfile } = useAuthStore()
   const { openModal, closeModal } = modalStore()
   const { addToast } = useToastStore()
 
@@ -48,7 +47,11 @@ const CreatePostModal = ({ file, setFile }: CreatePostModalProps) => {
         createdAt: Date.now(),
       }
       const result = await firebaseStorageService.uploadFile(file, newPost)
-      await firebaseStorageService.findPostsByUid(uid)
+      await firebaseStorageService.findPostsByUid(uid, (updatedUserProfile) => {
+        if (updatedUserProfile) {
+          setUserProfile(updatedUserProfile)
+        }
+      })
       if (!result) {
         addToast('🚫 이미지 업로드 실패: 다시 시도해주세요.', 'warning')
       }
@@ -81,7 +84,6 @@ const CreatePostModal = ({ file, setFile }: CreatePostModalProps) => {
             새 게시물 만들기
           </h2>
         </div>
-        <CommonHr />
         <div className="w-full h-96 flex gap-3">
           <div className="w-2/3">
             {blobUrl && (

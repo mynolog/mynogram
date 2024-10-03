@@ -1,8 +1,8 @@
-import CommonHr from '../../common/hr/CommonHr.tsx'
-import CommonButton from '../../common/button/CommonButton.tsx'
+import CommonHr from '../../../common/hr/CommonHr.tsx'
+import CommonButton from '../../../common/button/CommonButton.tsx'
 import { IoLockClosedOutline } from 'react-icons/io5'
-import Logout from '../../auth/Logout.tsx'
-import useModalStore from '../../../store/modalStore.ts'
+import Logout from '../../../auth/Logout.tsx'
+import useModalStore from '../../../../store/modalStore.ts'
 
 const LogoutConfirmModal = () => {
   const { closeModal } = useModalStore()
