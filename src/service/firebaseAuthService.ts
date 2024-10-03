@@ -1,6 +1,11 @@
 import type { SignUpForm } from '../types/auth/authTypes.ts'
 import { auth, db } from '../config/firebaseConfig.ts'
-import { GoogleAuthProvider, signInWithPopup, signOut } from 'firebase/auth'
+import {
+  GoogleAuthProvider,
+  GithubAuthProvider,
+  signInWithPopup,
+  signOut,
+} from 'firebase/auth'
 import { doc, setDoc } from 'firebase/firestore'
 import { Collection } from '../types/firebase/firebaseTypes.ts'
 
@@ -11,6 +16,17 @@ export const firebaseAuthService = {
     try {
       const googleAuthProvider = new GoogleAuthProvider()
       const result = await signInWithPopup(auth, googleAuthProvider)
+      return result.user
+    } catch (error) {
+      console.error('로그인 실패', error)
+      return null
+    }
+  },
+
+  async githubLogin() {
+    try {
+      const githubAuthProvider = new GithubAuthProvider()
+      const result = await signInWithPopup(auth, githubAuthProvider)
       return result.user
     } catch (error) {
       console.error('로그인 실패', error)

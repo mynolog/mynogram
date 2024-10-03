@@ -14,6 +14,7 @@ export const firebaseUserService = {
         return userDoc.data() as UserProfile
       } else {
         console.error('회원 정보가 존재하지 않습니다.')
+        return null
       }
     } catch (error) {
       console.error('유저 조회 실패', error)

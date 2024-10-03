@@ -43,7 +43,9 @@ const ViewPostModal = ({ selectedPost }: ViewPostModalProps) => {
     <div className="w-full h-full flex flex-col">
       <div className="w-full flex flex-col justify-center items-center">
         <div className="w-full flex items-center justify-between gap-2">
-          <h2 className="flex-1 text-center font-bold mb-2">{author} 게시물</h2>
+          <h2 className="flex-1 text-center font-bold mb-2">
+            {author}님의 게시물
+          </h2>
         </div>
         <div className="w-full h-96 flex gap-3">
           <div className="w-2/3">
