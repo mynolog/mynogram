@@ -11,7 +11,7 @@ const NavList = () => {
   }
 
   return (
-    <ul className="w-full flex flex-col gap-2">
+    <ul className="w-full flex flex-col justify-center gap-2 text-sm">
       <NavItem iconId="home">
         <Link
           to="/"

@@ -2,7 +2,7 @@ import UserPost from './UserPost.tsx'
 import UserProfile from './UserProfile.tsx'
 const UserOverview = () => {
   return (
-    <main className="w-3/4 ml-72 mr-52 my-12">
+    <main className="max-w-fit flex flex-col mx-auto mt-20">
       <UserProfile />
       <UserPost />
     </main>

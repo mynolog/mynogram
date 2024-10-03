@@ -38,7 +38,7 @@ const UserPost = () => {
         </div>
       </div>
       <div className="w-full">
-        <ul className="w-full grid grid-cols-3 gap-1">
+        <ul className="w-full grid grid-cols-3 gap-1 xxl:grid-cols-3 lg:grid-cols-2 sm:grid-cols-1">
           {storedPosts.filter((post) => post.uid === uid).length > 0 ? (
             storedPosts.map(
               (post) =>

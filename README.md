@@ -8,6 +8,18 @@
 
 ## 프리뷰
 
+<div style="display:flex; flex-direction: column; justify-content: center; align-items: center;">
+    <h3>메인 페이지</h3>
+    <img src="./images/메인페이지.png" alt="홈" style="width: 800px">
+    <h3>나의 페이지</h3>
+    <img src="./images/나의페이지.png" alt="마이페이지" style="width: 800px">
+    <h3>나의 게시물 보기</h3>
+    <img src="./images/나의게시물.png" alt="유저포스트" style="width: 800px">
+    <h3>다른 회원 게시물 보기</h3>
+    <img src="./images/다른회게시물.png" alt="유저포스트" style="width: 800px">
+</div>
+
+
 
 ## 기술 스택
 [![React](https://skillicons.dev/icons?i=react)](https://ko.react.dev/)

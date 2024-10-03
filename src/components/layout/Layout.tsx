@@ -5,9 +5,11 @@ import Footer from '../partials/footer/Footer.tsx'
 const Layout = () => {
   return (
     <div className="w-full h-screen flex flex-col">
-      <Nav />
-      <Outlet />
-      <Footer />
+      <div className="w-full h-screen flex flex-col">
+        <Nav />
+        <Outlet />
+        <Footer />
+      </div>
     </div>
   )
 }
