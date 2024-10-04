@@ -16,7 +16,7 @@ const AllPostsOverview = () => {
   }
 
   return (
-    <main className="max-w-fit flex mx-auto mt-20">
+    <main className="max-w-fit flex mx-auto mt-20 pl-[120px]">
       <div className="w-full px-14 py-4">
         <div className="flex items-center justify-center mb-10 gap-4">
           <FaGlasses className="text-4xl" />
