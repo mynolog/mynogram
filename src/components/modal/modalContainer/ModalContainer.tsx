@@ -34,7 +34,7 @@ const ModalContainer = () => {
       case 'logout':
         return <LogoutConfirmModal />
       case 'edit':
-        return <EditUserProfileModal />
+        return <EditUserProfileModal file={file} setFile={setFile} />
       default:
         console.error('정의되지 않은 모달 타입: 관리자에게 문의 필요')
         return null

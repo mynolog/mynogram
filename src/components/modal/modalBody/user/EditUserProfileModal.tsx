@@ -1,3 +1,5 @@
+import { ChangeEvent, Dispatch, SetStateAction, useState } from 'react'
+import { useRef } from 'react'
 import CommonHr from '../../../common/hr/CommonHr.tsx'
 import useAuthStore from '../../../../store/authStore.ts'
 import { CiUser } from 'react-icons/ci'
@@ -8,15 +10,23 @@ import { firebaseUserService } from '../../../../service/firebaseUserService.ts'
 import useToastStore from '../../../../store/toastStore.ts'
 import useModalStore from '../../../../store/modalStore.ts'
 
-const EditUserProfileModal = () => {
+type EditUserProfileModalProps = {
+  file: File | null
+  setFile: Dispatch<SetStateAction<File | null>>
+}
+
+const EditUserProfileModal = ({ file, setFile }: EditUserProfileModalProps) => {
+  const [blobUrl, setBlobUrl] = useState<string | null>(null)
   const { userProfile, setUserProfile, uid } = useAuthStore()
-  const { addToast } = useToastStore()
-  const { closeModal } = useModalStore()
+  const avatarRef = useRef<HTMLInputElement>(null)
   const { form, handleFormChange, resetForm } = useForm({
     id: userProfile?.id || '',
     name: userProfile?.name || '',
     description: userProfile?.description || '',
+    avatarUrl: userProfile?.avatarUrl || '',
   })
+  const { addToast } = useToastStore()
+  const { closeModal } = useModalStore()
 
   const handleUpdateUserProfileClick = async () => {
     if (form.id.trim() === '') {
@@ -27,22 +37,41 @@ const EditUserProfileModal = () => {
       addToast('이름은 필수입니다.', 'delete')
       return
     }
-    const newUserForm = {
-      ...form,
+    if (file && uid) {
+      const newUserForm = {
+        ...form,
+      }
+      const result = await firebaseUserService.updateUserProfileByUid(
+        uid!,
+        newUserForm,
+        file,
+      )
+      if (!result) {
+        addToast('유저 정보 수정 실패: 다시 시도해주세요.', 'warning')
+        return
+      }
+      setUserProfile(result)
+      resetForm()
+      closeModal()
+      addToast('유저 정보가 수정되었습니다.', 'update')
     }
-    const result = await firebaseUserService.updateUserProfileByUid(
-      uid!,
-      newUserForm,
-    )
-    if (!result) {
-      addToast('유저 정보 수정 실패: 다시 시도해주세요.', 'warning')
-      return
-    }
-    setUserProfile(result)
-    resetForm()
-    closeModal()
-    addToast('유저 정보가 수정되었습니다.', 'update')
   }
+
+  const handleSelectUserAvatarClick = () => {
+    if (avatarRef.current) {
+      avatarRef.current.click()
+    }
+  }
+
+  const handleSelectUserAvatarChange = (e: ChangeEvent<HTMLInputElement>) => {
+    const targetFile = e.currentTarget.files![0]
+    setFile(targetFile)
+    if (targetFile) {
+      const blob = URL.createObjectURL(targetFile)
+      setBlobUrl(blob)
+    }
+  }
+
   return (
     <div className="w-full h-full flex flex-col">
       <div className="w-full flex flex-col justify-center items-center gap-2">
@@ -57,11 +86,19 @@ const EditUserProfileModal = () => {
                     className="rounded-full flex justify-center items-center cursor-pointer"
                     style={{ width: '130px', height: '130px' }}
                   >
-                    <img
-                      src={userProfile.avatarUrl}
-                      alt={userProfile.name}
-                      className="w-full h-full object-cover object-center rounded-full"
-                    />
+                    {blobUrl ? (
+                      <img
+                        src={blobUrl}
+                        alt={file?.name || ''}
+                        className="w-full h-full object-cover object-center rounded-full"
+                      />
+                    ) : (
+                      <img
+                        src={userProfile.avatarUrl}
+                        alt={userProfile.name}
+                        className="w-full h-full object-cover object-center rounded-full"
+                      />
+                    )}
                   </div>
                 ) : (
                   <div
@@ -73,7 +110,19 @@ const EditUserProfileModal = () => {
                   </div>
                 )}
                 {/* TODO: 사진 변경 클릭 시 사진 선택 화면으로 이동 */}
-                <span className="text-blue-600 font-semibold">사진 변경</span>
+                <span
+                  className="text-blue-600 font-semibold cursor-pointer"
+                  onClick={handleSelectUserAvatarClick}
+                >
+                  사진 변경
+                </span>
+                <input
+                  type="file"
+                  accept="image/*"
+                  ref={avatarRef}
+                  onChange={handleSelectUserAvatarChange}
+                  hidden
+                />
               </div>
               <div className="w-full flex flex-col justify-center gap-3">
                 <form className="w-full flex flex-col justify-center items-center gap-3">

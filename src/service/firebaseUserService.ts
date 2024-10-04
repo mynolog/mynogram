@@ -1,7 +1,8 @@
 import type { Collection } from '../types/firebase/firebaseTypes.ts'
 import { UserProfile } from '../types/user/UserTypes.ts'
-import { db } from '../config/firebaseConfig.ts'
-import { doc, getDoc, updateDoc } from 'firebase/firestore'
+import { db, storage } from '../config/firebaseConfig.ts'
+import { doc, getDoc, updateDoc, setDoc } from 'firebase/firestore'
+import { getDownloadURL, uploadBytes, ref } from 'firebase/storage'
 
 const USER: Collection = 'user'
 
@@ -13,7 +14,6 @@ export const firebaseUserService = {
       if (userDoc.exists()) {
         return userDoc.data() as UserProfile
       } else {
-        console.error('회원 정보가 존재하지 않습니다.')
         return null
       }
     } catch (error) {
@@ -30,20 +30,25 @@ export const firebaseUserService = {
       name: string
       description: string
     },
+    targetFile: File,
   ) {
     try {
+      const storageRef = ref(storage, `users/${targetFile.name}`)
+      const uploadResult = await uploadBytes(storageRef, targetFile)
+      const fileUrl = await getDownloadURL(uploadResult.ref)
+
       const userDocRef = doc(db, USER, uid)
 
       if (userDocRef) {
         await updateDoc(userDocRef, {
           ...targetUserForm,
+          avatarUrl: fileUrl,
         })
         const userDoc = await getDoc(userDocRef)
         if (userDoc.exists()) {
           return userDoc.data() as UserProfile
         }
       } else {
-        console.error('회원 정보가 존재하지 않습니다.')
         return null
       }
     } catch (error) {

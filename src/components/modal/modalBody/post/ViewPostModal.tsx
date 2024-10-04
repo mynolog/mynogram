@@ -3,7 +3,7 @@ import type { Post } from '../../../../types/post/PostTypes.ts'
 import CommonButton from '../../../common/button/CommonButton.tsx'
 import { GrErase, GrTrash } from 'react-icons/gr'
 import { AiOutlineRollback } from 'react-icons/ai'
-import { TbShare3 } from 'react-icons/tb'
+import { FaRegSave } from 'react-icons/fa'
 import { formatCreatedAt } from '../../../../utils/formatCreatetAt.ts'
 import useAuthStore from '../../../../store/authStore.ts'
 import { firebaseStorageService } from '../../../../service/firebaseStorageService.ts'
@@ -51,6 +51,7 @@ const ViewPostModal = ({ selectedPost }: ViewPostModalProps) => {
       setIsPostEditMode(false)
       textAreaRef.current.hidden = false
       newTextAreaRef.current.hidden = true
+      setNewText(text)
     }
   }
 
@@ -126,8 +127,8 @@ const ViewPostModal = ({ selectedPost }: ViewPostModalProps) => {
                       width="90px"
                       onClick={handlePostUpdateClick}
                     >
-                      <TbShare3 />
-                      <span className="ml-2">공유</span>
+                      <FaRegSave />
+                      <span className="ml-2">저장</span>
                     </CommonButton>
                     <CommonButton
                       fontSize="0.85rem"
