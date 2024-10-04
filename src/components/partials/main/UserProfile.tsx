@@ -4,9 +4,11 @@ import { CiUser, CiSettings } from 'react-icons/ci'
 import { FaThreads } from 'react-icons/fa6'
 import { useEffect } from 'react'
 import { firebaseStorageService } from '../../../service/firebaseStorageService.ts'
+import useModalStore from '../../../store/modalStore.ts'
 
 const UserProfile = () => {
   const { userProfile, uid, setUserProfile } = useAuthStore()
+  const { openModal } = useModalStore()
 
   useEffect(() => {
     const fetchUserProfile = async () => {
@@ -20,6 +22,10 @@ const UserProfile = () => {
       })
     }
   }, [uid, setUserProfile])
+
+  const handleEditUserProfileClick = () => {
+    openModal('edit')
+  }
 
   return (
     <div className="w-full flex">
@@ -58,6 +64,7 @@ const UserProfile = () => {
                 width="100px"
                 padding="5px 3px"
                 textColor="#000"
+                onClick={handleEditUserProfileClick}
               >
                 {/* TODO: 프로필 편집 클릭 시 프로필 편집 모달 창 불러오기 */}
                 <span className="font-semibold">프로필 편집</span>

@@ -8,6 +8,7 @@ import { IoClose } from 'react-icons/io5'
 import LogoutConfirmModal from '../modalBody/auth/LogoutConfirmModal.tsx'
 import ViewPostModal from '../modalBody/post/ViewPostModal.tsx'
 import usePostStore from '../../../store/postStore.ts'
+import EditUserProfileModal from '../modalBody/user/EditUserProfileModal.tsx'
 
 const ModalContainer = () => {
   const [file, setFile] = useState<File | null>(null)
@@ -32,6 +33,8 @@ const ModalContainer = () => {
         return <ViewPostModal selectedPost={selectedPost} />
       case 'logout':
         return <LogoutConfirmModal />
+      case 'edit':
+        return <EditUserProfileModal />
       default:
         console.error('정의되지 않은 모달 타입: 관리자에게 문의 필요')
         return null

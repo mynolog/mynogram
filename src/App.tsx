@@ -28,7 +28,7 @@ function App() {
       <AppRouter />
       <Title />
 
-      <div className="fixed top-5 right-5">
+      <div className="fixed top-5 right-5 z-[999]">
         {toasts.map(({ id, message, variant }, index) => (
           <Toast
             key={id}

@@ -1,6 +1,6 @@
 import { create } from 'zustand'
 
-export type ActiveModalFlag = 'select' | 'create' | 'view' | 'logout'
+export type ActiveModalFlag = 'select' | 'create' | 'view' | 'logout' | 'edit'
 
 type ModalState = {
   activeModal: ActiveModalFlag | null

@@ -20,7 +20,7 @@ const Toast = ({ message, variant, style = {} }: ToastProps) => {
   return (
     <div
       style={{ backgroundColor: toastColor[variant], ...style }}
-      className={`z-[999] fixed top-5 right-5 text-lg text-white py-2.5 px-5 rounded-lg shadow-lg transition-transform duration-1000 ease-in-out transform ${isVisible ? 'translate-x-0' : 'translate-x-[200%]'}`}
+      className={`fixed top-5 right-5 text-lg text-white py-2.5 px-5 rounded-lg shadow-lg transition-transform duration-1000 ease-in-out transform ${isVisible ? 'translate-x-0' : 'translate-x-[200%]'}`}
     >
       <span>{message}</span>
     </div>
