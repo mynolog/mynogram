@@ -5,6 +5,6 @@ export type UserProfile = {
   followers: number
   follows: number
   posts: number
-  avatarUrl: string | null
+  avatarUrl?: string
   link?: string
 }
