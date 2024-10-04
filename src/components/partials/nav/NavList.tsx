@@ -53,32 +53,34 @@ const NavList = () => {
           만들기
         </Link>
       </NavItem>
-      {/*<NavItem iconId="profile" onClick={handleMyPageLinkClick}>*/}
-      {/*  <Link*/}
-      {/*    to="/my-page"*/}
-      {/*    style={{ display: 'block', width: '100%', height: '100%' }}*/}
-      {/*  >*/}
-      {/*    나의 페이지*/}
-      {/*  </Link>*/}
-      {/*</NavItem>*/}
-
-      <li className="flex items-center gap-3 p-2 rounded-lg hover:bg-slate-100 cursor-pointer transition-colors duration-300">
-        <Link
-          to="/my-page"
-          style={{
-            display: 'flex',
-            width: '100%',
-            height: '100%',
-          }}
-        >
-          <img
-            src={userProfile?.avatarUrl || ''}
-            alt={userProfile?.name || ''}
-            className="w-6 h-6 object-cover object-center rounded-full mr-3"
-          />
-          <span className="flex items-center font-semibold">나의 페이지</span>
-        </Link>
-      </li>
+      {userProfile && userProfile.avatarUrl === '' ? (
+        <NavItem iconId="profile" onClick={handleMyPageLinkClick}>
+          <Link
+            to="/my-page"
+            style={{ display: 'block', width: '100%', height: '100%' }}
+          >
+            나의 페이지
+          </Link>
+        </NavItem>
+      ) : (
+        <li className="flex items-center gap-3 p-2 rounded-lg hover:bg-slate-100 cursor-pointer transition-colors duration-300">
+          <Link
+            to="/my-page"
+            style={{
+              display: 'flex',
+              width: '100%',
+              height: '100%',
+            }}
+          >
+            <img
+              src={userProfile?.avatarUrl || ''}
+              alt={userProfile?.name || ''}
+              className="w-6 h-6 object-cover object-center rounded-full mr-3"
+            />
+            <span className="flex items-center font-semibold">나의 페이지</span>
+          </Link>
+        </li>
+      )}
     </ul>
   )
 }
