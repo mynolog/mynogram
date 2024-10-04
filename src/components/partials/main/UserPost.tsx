@@ -1,5 +1,5 @@
-import type { Post } from '../../../types/post/PostTypes.ts'
-import CommonHr from '../../common/hr/CommonHr.tsx'
+import type { Post } from '../../../types/post/postTypes.ts'
+import Divider from '../../common/divider/Divider.tsx'
 import { BsGrid3X3 } from 'react-icons/bs'
 import { FaHashtag } from 'react-icons/fa6'
 import { FaRegStar } from 'react-icons/fa'
@@ -22,7 +22,7 @@ const UserPost = () => {
 
   return (
     <div className="w-full px-14 py-4">
-      <CommonHr />
+      <Divider />
       <div className="w-full h-16 flex items-center justify-center gap-20 text-sm">
         <div className="flex h-full justify-center items-center gap-2 border-t-2 border-slate-600 pb-1 px-2">
           <BsGrid3X3 />

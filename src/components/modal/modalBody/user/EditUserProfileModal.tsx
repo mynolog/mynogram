@@ -1,6 +1,6 @@
 import { ChangeEvent, Dispatch, SetStateAction, useState } from 'react'
 import { useRef } from 'react'
-import CommonHr from '../../../common/hr/CommonHr.tsx'
+import Divider from '../../../common/divider/Divider.tsx'
 import useAuthStore from '../../../../store/authStore.ts'
 import { CiUser } from 'react-icons/ci'
 import CommonInput from '../../../common/input/CommonInput.tsx'
@@ -76,7 +76,7 @@ const EditUserProfileModal = ({ file, setFile }: EditUserProfileModalProps) => {
     <div className="w-full h-full flex flex-col">
       <div className="w-full flex flex-col justify-center items-center gap-2">
         <h2 className="font-bold">프로필 수정</h2>
-        <CommonHr />
+        <Divider />
         <div className="w-full flex flex-col justify-center items-center gap-3 my-2">
           {userProfile && (
             <>

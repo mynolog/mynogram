@@ -1,4 +1,4 @@
-import CommonHr from '../../../common/hr/CommonHr.tsx'
+import Divider from '../../../common/divider/Divider.tsx'
 import CommonButton from '../../../common/button/CommonButton.tsx'
 import { IoLockClosedOutline } from 'react-icons/io5'
 import Logout from '../../../auth/Logout.tsx'
@@ -13,7 +13,7 @@ const LogoutConfirmModal = () => {
     <div className="w-full h-full flex flex-col">
       <div className="w-full flex flex-col justify-center items-center gap-2">
         <h2 className="font-bold">로그아웃 확인</h2>
-        <CommonHr />
+        <Divider />
       </div>
       <div className="w-full flex flex-col justify-center items-center my-5 gap-5">
         <IoLockClosedOutline className="text-5xl" />

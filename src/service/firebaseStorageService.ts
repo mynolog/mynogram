@@ -1,4 +1,4 @@
-import type { Post } from '../types/post/PostTypes.ts'
+import type { Post } from '../types/post/postTypes.ts'
 import {
   getDownloadURL,
   ref,
@@ -18,7 +18,7 @@ import {
   deleteDoc,
   where,
 } from 'firebase/firestore'
-import { UserProfile } from '../types/user/UserTypes.ts'
+import { UserProfile } from '../types/user/userTypes.ts'
 import { Collection } from '../types/firebase/firebaseTypes.ts'
 
 const POSTS: Collection = 'posts'

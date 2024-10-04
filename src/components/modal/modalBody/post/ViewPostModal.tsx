@@ -1,5 +1,5 @@
 import { type ChangeEvent, useRef, useState } from 'react'
-import type { Post } from '../../../../types/post/PostTypes.ts'
+import type { Post } from '../../../../types/post/postTypes.ts'
 import CommonButton from '../../../common/button/CommonButton.tsx'
 import { GrErase, GrTrash } from 'react-icons/gr'
 import { AiOutlineRollback } from 'react-icons/ai'

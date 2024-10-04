@@ -39,6 +39,7 @@ const CreatePostModal = ({ file, setFile }: CreatePostModalProps) => {
 
   const handlePostShareClick = async () => {
     // TODO: 조건 분리하여 각각 분기 처리
+
     if (file && uid && userProfile) {
       const newPost = {
         uid,

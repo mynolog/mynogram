@@ -1,4 +1,4 @@
-import type { Post } from '../types/post/PostTypes.ts'
+import type { Post } from '../types/post/postTypes.ts'
 import { create } from 'zustand'
 
 type PostState = {

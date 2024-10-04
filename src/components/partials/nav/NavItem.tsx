@@ -1,6 +1,6 @@
 import type { ReactNode } from 'react'
 import type { IconKeys } from '../../../types/icon/iconTypes.ts'
-import { icons } from './Icons.tsx'
+import { icons } from './NavIcons.tsx'
 
 type NavItemProps = {
   children: ReactNode

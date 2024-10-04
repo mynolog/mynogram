@@ -9,12 +9,20 @@ import useAllPostsStore from './store/allPostsStore.ts'
 
 function App() {
   const { toasts } = useToastStore()
-  const { setStoredPosts } = useAllPostsStore()
+  const { setStoredPosts, setIsLoading } = useAllPostsStore()
 
   useEffect(() => {
     const fetchPost = async () => {
-      return await firebaseStorageService.findPosts(setStoredPosts)
+      setIsLoading(true)
+      try {
+        return await firebaseStorageService.findPosts(setStoredPosts)
+      } catch (e) {
+        console.error(e)
+      } finally {
+        setIsLoading(false)
+      }
     }
+
     const unsubscribe = fetchPost()
     return () => {
       unsubscribe.then((unsub) => {

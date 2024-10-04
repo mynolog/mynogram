@@ -1,5 +1,5 @@
 import type { Collection } from '../types/firebase/firebaseTypes.ts'
-import { UserProfile } from '../types/user/UserTypes.ts'
+import { UserProfile } from '../types/user/userTypes.ts'
 import { db, storage } from '../config/firebaseConfig.ts'
 import { doc, getDoc, updateDoc } from 'firebase/firestore'
 import { getDownloadURL, uploadBytes, ref } from 'firebase/storage'

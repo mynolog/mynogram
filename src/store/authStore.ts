@@ -1,4 +1,4 @@
-import type { UserProfile } from '../types/user/UserTypes.ts'
+import type { UserProfile } from '../types/user/userTypes.ts'
 import { create } from 'zustand'
 import { persist, createJSONStorage } from 'zustand/middleware'
 

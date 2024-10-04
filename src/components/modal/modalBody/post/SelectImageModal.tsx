@@ -1,6 +1,6 @@
 import type { ChangeEvent, Dispatch, SetStateAction } from 'react'
 import { useRef } from 'react'
-import CommonHr from '../../../common/hr/CommonHr.tsx'
+import Divider from '../../../common/divider/Divider.tsx'
 import { CiImageOn } from 'react-icons/ci'
 import CommonButton from '../../../common/button/CommonButton.tsx'
 import useModalStore from '../../../../store/modalStore.ts'
@@ -33,7 +33,7 @@ const SelectImageModal = ({ setFile }: SelectImageModalProps) => {
     <div className="w-full h-full flex flex-col">
       <div className="w-full flex flex-col justify-center items-center gap-2">
         <h2 className="font-bold">새 게시물 만들기</h2>
-        <CommonHr />
+        <Divider />
       </div>
       <div className="w-full flex flex-col justify-center items-center gap-3">
         <CiImageOn className="text-9xl" />
