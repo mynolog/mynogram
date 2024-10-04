@@ -1,5 +1,10 @@
 import type { Post } from '../types/post/PostTypes.ts'
-import { getDownloadURL, ref, uploadBytes } from 'firebase/storage'
+import {
+  getDownloadURL,
+  ref,
+  uploadBytes,
+  deleteObject,
+} from 'firebase/storage'
 import { db, storage } from '../config/firebaseConfig.ts'
 import {
   collection,
@@ -110,10 +115,15 @@ export const firebaseStorageService = {
     return false
   },
 
-  async deletePost(targetId: string) {
+  // TODO: 게시물 삭제 시 스토어에 저장된 이미지도 함께 삭제하는 로직 구현
+  async deletePost(targetId: string, targetUrl: string) {
     try {
       const docRef = doc(db, POSTS, targetId)
       await deleteDoc(docRef)
+
+      const imageRef = ref(storage, targetUrl)
+      await deleteObject(imageRef)
+
       return true
     } catch (e) {
       console.error(e)

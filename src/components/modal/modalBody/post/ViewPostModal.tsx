@@ -66,7 +66,7 @@ const ViewPostModal = ({ selectedPost }: ViewPostModalProps) => {
   }
 
   const handlePostDeleteClick = async () => {
-    const result = await firebaseStorageService.deletePost(id!)
+    const result = await firebaseStorageService.deletePost(id!, url!)
     if (!result) {
       addToast('🚫 게시물 삭제 실패: 다시 시도해주세요.', 'warning')
     }
